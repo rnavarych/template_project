@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "762974238886",
+    "project_id": "push-notifications-ce188",
+    "storage_bucket": "push-notifications-ce188.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762974238886:android:7f75cda9c23c09c2d3dc67",
+        "android_client_info": {
+          "package_name": "com.epiccycling"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762974238886-vi33lakpf5qer55uh5qhvlce3l6o116q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzOJfHWVGY9KbamMz96MFpJfxy9jo8Ijo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "762974238886-vi33lakpf5qer55uh5qhvlce3l6o116q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762974238886:android:e68abc1a44ce9d1cd3dc67",
+        "android_client_info": {
+          "package_name": "com.templateproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762974238886-vi33lakpf5qer55uh5qhvlce3l6o116q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzOJfHWVGY9KbamMz96MFpJfxy9jo8Ijo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "762974238886-vi33lakpf5qer55uh5qhvlce3l6o116q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
