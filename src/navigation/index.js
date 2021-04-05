@@ -48,14 +48,14 @@ const Navigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name={routes.LOGIN_SCREEN}
           component={LoginScreen}
           options={{
             headerShown: false,
             animationTypeForReplace: 'pop',
           }}
-        />
+        /> */}
         <Stack.Screen
           name={routes.HOME_SCREEN}
           component={HomeStackScreen}
