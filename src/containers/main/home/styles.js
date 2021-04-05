@@ -6,7 +6,6 @@ export default EStyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: '7%',
@@ -19,7 +18,6 @@ export default EStyleSheet.create({
     borderRadius: 5,
   },
   buttonContainer: {
-    //flex: 1,
     width: '100%',
     justifyContent: 'center',
   },

@@ -1,5 +1,6 @@
-import {createStore, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware, combineReducers} from 'redux';
 import authReducer from '../reducers/auth';
+import changeThemeReducer from '../reducers/changeTheme';
 import {apiMiddleware} from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import logger from 'redux-logger';
@@ -12,17 +13,20 @@ export const configureStore = () => {
   }
 
   const persistConfig = {
-    key: 'auth',
+    key: 'root',
     storage: AsyncStorage,
     timeout: null,
+    whitelist: ['auth', 'changeTheme'],
   };
 
-  const authPersistedReducer = persistReducer(persistConfig, authReducer);
+  const rootReducer = combineReducers({
+    auth: authReducer,
+    changeTheme: changeThemeReducer,
+  });
 
-  const store = createStore(
-    authPersistedReducer,
-    applyMiddleware(...middlewares),
-  );
+  const persitedReducer = persistReducer(persistConfig, rootReducer);
+
+  const store = createStore(persitedReducer, applyMiddleware(...middlewares));
   const persistor = persistStore(store);
   return {store, persistor};
 };

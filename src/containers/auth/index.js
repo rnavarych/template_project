@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {connect} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import Input from '../../components/input';
 import Button from '../../components/button';
@@ -13,6 +13,7 @@ function LoginScreen(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const isDark = useSelector(state => state.changeTheme.isDarkTheme);
 
   useEffect(() => {
     setErrorMessage('');
@@ -29,7 +30,10 @@ function LoginScreen(props) {
     <KeyboardAwareScrollView
       extraHeight={100}
       style={styles.screenContainer}
-      contentContainerStyle={styles.contentContainer}
+      contentContainerStyle={{
+        ...styles.contentContainer,
+        backgroundColor: isDark ? '#494f4f' : '#fff',
+      }}
       keyboardShouldPersistTaps={'handled'}
       bounces={false}>
       <View style={styles.userForm}>
