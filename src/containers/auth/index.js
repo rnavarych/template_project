@@ -6,7 +6,7 @@ import auth from '@react-native-firebase/auth';
 import Input from '../../components/input';
 import Button from '../../components/button';
 import {strings} from '../../l18n';
-import styles from './styles/common';
+import styles from './styles';
 import * as routes from '../../constants/routes';
 
 function LoginScreen(props) {
