@@ -1,0 +1,13 @@
+{
+  "placeholder": {
+    "username": "User Name",
+    "password": "Password"
+  },
+  "buttons": {
+    "login": "Sign in"
+  },
+  "errors": {
+    "wrongCreads": "Wrong Username or Password",
+    "unknown": "Unknown error"
+  }
+}
