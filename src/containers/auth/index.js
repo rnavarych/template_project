@@ -3,6 +3,8 @@ import {View, Text} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import auth from '@react-native-firebase/auth';
+
+import {logSignUp} from '../../analytics'
 import Input from '../../components/input';
 import Button from '../../components/button';
 import {strings} from '../../l18n';
@@ -21,7 +23,10 @@ function LoginScreen(props) {
   const handleLogin = () => {
     auth()
       .signInWithEmailAndPassword(username, password)
-      .then(() => props.navigation.navigate(routes.HOME_SCREEN))
+      .then(() => {
+        logSignUp('email&pass')
+        return props.navigation.navigate(routes.HOME_SCREEN)
+      })
       .catch(error => setErrorMessage(error.message));
   };
 
