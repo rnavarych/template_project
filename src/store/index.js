@@ -5,7 +5,6 @@ import {apiMiddleware} from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import logger from 'redux-logger';
 import {persistStore, persistReducer} from 'redux-persist';
-
 export const configureStore = () => {
   const middlewares = [apiMiddleware];
   if (__DEV__) {

@@ -1,6 +1,10 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  DarkTheme,
+  DefaultTheme,
+} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
@@ -28,7 +32,6 @@ const tabBarIconHandler = (route, focused, color, size) => {
 };
 
 const HomeStackScreen = () => {
-  const isDark = useSelector(state => state.changeTheme.isDarkTheme);
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -37,10 +40,7 @@ const HomeStackScreen = () => {
       })}
       tabBarOptions={{
         activeTintColor: 'tomato',
-        inactiveTintColor: isDark ? '#fff' : 'gray',
-        style: {
-          backgroundColor: isDark ? '#494f4f' : '#fff',
-        },
+        inactiveTintColor: 'gray',
       }}>
       <Tab.Screen name={routes.HOME_SCREEN} component={HomeScreen} />
       <Tab.Screen name={routes.SETTINGS_SCREEN} component={SettingsScreen} />
@@ -49,8 +49,10 @@ const HomeStackScreen = () => {
 };
 
 const Navigation = () => {
+  const isDark = useSelector(state => state.changeTheme.isDarkTheme);
+  const theme = isDark ? DarkTheme : DefaultTheme;
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={theme}>
       <Stack.Navigator>
         <Stack.Screen
           name={routes.LOGIN_SCREEN}
