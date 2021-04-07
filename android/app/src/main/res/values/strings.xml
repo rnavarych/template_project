@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TemplateProject</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">QdAKZm3-WWijgRkmcBKY9XYl2m8bFEab-cMGb</string>
 </resources>

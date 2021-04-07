@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StatusBar} from 'react-native';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import codePush from 'react-native-code-push';
 
 import {HandleNotifications} from './scripts/handleNotifications';
 import Navigation from './navigation';
@@ -27,4 +28,4 @@ function App() {
   );
 }
 
-export default App;
+export default codePush(App);
