@@ -1,6 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
-import {Text, TextInput} from 'react-native-paper';
+import {TextInput, View, Text} from 'react-native';
 
 import styles from './styles';
 

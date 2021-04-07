@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View} from 'react-native';
-import {Text} from 'react-native-paper';
+import {View, Text} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect} from 'react-redux';
 import auth from '@react-native-firebase/auth';

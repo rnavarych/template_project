@@ -1,16 +1,12 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {
-  NavigationContainer,
-  DarkTheme,
-  DefaultTheme,
-} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import * as routes from '../constants/routes';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {connect, useSelector} from 'react-redux';
+import {connect} from 'react-redux';
 
 import LoginScreen from '../containers/auth';
 import HomeScreen from '../containers/main/home';
@@ -49,10 +45,8 @@ const HomeStackScreen = () => {
 };
 
 const Navigation = () => {
-  const isDark = useSelector(state => state.changeTheme.isDarkTheme);
-  const theme = isDark ? DarkTheme : DefaultTheme;
   return (
-    <NavigationContainer theme={theme}>
+    <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
           name={routes.LOGIN_SCREEN}

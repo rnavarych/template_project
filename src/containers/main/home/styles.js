@@ -6,6 +6,7 @@ export default EStyleSheet.create({
   },
   contentContainer: {
     flex: 1,
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: '7%',

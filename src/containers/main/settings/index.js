@@ -1,6 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
-import {Text} from 'react-native-paper';
+import {View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import styles from './styles';
 
