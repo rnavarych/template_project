@@ -6,7 +6,7 @@ import styles from './styles';
 function HomeScreen() {
   return (
     <View style={styles.contentContainer}>
-      <Text>Home Screen</Text>
+      <Text>Screen</Text>
     </View>
   );
 }
