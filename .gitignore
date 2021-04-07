@@ -62,3 +62,4 @@ java_pid13239.hprof
 # CocoaPods
 /ios/Pods/
 
+*.hprof

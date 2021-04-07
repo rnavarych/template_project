@@ -6,6 +6,8 @@
 	<array>
 		<string>Ionicons.ttf</string>
 	</array>
+	<key>CodePushDeploymentKey</key>
+	<string>_ZbQezwyPGLHwJL76XO3tHYBIQci_1kqunHLA</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
