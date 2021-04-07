@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
+import analytics from '@react-native-firebase/analytics';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -46,7 +47,7 @@ const HomeStackScreen = () => {
 
 const Navigation = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer onStateChange={onStateChange}>
       <Stack.Navigator>
         <Stack.Screen
           name={routes.LOGIN_SCREEN}
@@ -67,6 +68,17 @@ const Navigation = () => {
       </Stack.Navigator>
     </NavigationContainer>
   );
+};
+
+const onStateChange = async state => {
+  const [previousRouteName, currentRouteName] = state.routes;
+
+  if (previousRouteName !== currentRouteName) {
+    await analytics().logScreenView({
+      screen_name: currentRouteName.name,
+      screen_class: currentRouteName.name,
+    });
+  }
 };
 
 export default connect()(Navigation);
