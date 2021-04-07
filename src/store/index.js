@@ -1,5 +1,5 @@
 import {createStore, applyMiddleware} from 'redux';
-import authReducer from '../reducers/auth';
+import { root as rootReducer} from '../reducers'
 import {apiMiddleware} from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import logger from 'redux-logger';
@@ -17,7 +17,7 @@ export const configureStore = () => {
     timeout: null,
   };
 
-  const authPersistedReducer = persistReducer(persistConfig, authReducer);
+  const authPersistedReducer = persistReducer(persistConfig, rootReducer);
 
   const store = createStore(
     authPersistedReducer,
