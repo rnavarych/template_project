@@ -4,11 +4,6 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import codePush from 'react-native-code-push';
-import {
-  Provider as PaperProvider,
-  DarkTheme as PaperDarkTheme,
-  DefaultTheme as PaperDefaultTheme,
-} from 'react-native-paper';
 
 import {HandleNotifications} from './scripts/handleNotifications';
 import Navigation from './navigation';
@@ -25,14 +20,14 @@ function App() {
   store.dispatch(setDirection(I18nManager.isRTL));
 
   return (
-    <SafeAreaProvider>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Navigation />
-          <HandleNotifications />
-        </PersistGate>
-      </Provider>
-    </SafeAreaProvider>
+      <SafeAreaProvider>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <Navigation />
+            <HandleNotifications />
+          </PersistGate>
+        </Provider>
+      </SafeAreaProvider>
   );
 }
 

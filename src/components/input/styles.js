@@ -24,6 +24,7 @@ export default EStyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     marginBottom: 5,
+    color: 'black',
   },
   container: {alignItems: 'flex-start', width: '100%'},
 });

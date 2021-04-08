@@ -14,64 +14,64 @@ import * as routes from '../../constants/routes';
 import {setUsername} from '../../actions/setUsername';
 
 function LoginScreen(props) {
-  const [username, setUserName] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const dispatch = useDispatch();
+    const [username, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    setErrorMessage('');
-  }, [username, password]);
+    useEffect(() => {
+        setErrorMessage('');
+    }, [username, password]);
 
-  const handleLogin = () => {
-    auth()
-      .signInWithEmailAndPassword(username, password)
-      .then(() => {
-        dispatch(setUsername(username));
-        logSignUp('email&pass');
-        return props.navigation.navigate(routes.HOME_SCREEN);
-      })
-      .catch(error => setErrorMessage(error.message));
-  };
+    const handleLogin = () => {
+        auth()
+            .signInWithEmailAndPassword(username, password)
+            .then(() => {
+                dispatch(setUsername(username));
+                logSignUp('email&pass');
+                return props.navigation.navigate(routes.HOME_SCREEN);
+            })
+            .catch(error => setErrorMessage(error.message));
+    };
 
-  return (
-    <KeyboardAwareScrollView
-      extraHeight={100}
-      style={styles.screenContainer}
-      contentContainerStyle={styles.contentContainer}
-      keyboardShouldPersistTaps={'handled'}
-      bounces={false}>
-      <View style={styles.userForm}>
-        <Input
-          label={strings('placeholder.username')}
-          autoCapitalize={'none'}
-          autoCorrect={false}
-          spellCheck={false}
-          text={username}
-          onChange={input => setUserName(input)}
-          containerStyle={styles.inputMargin}
-        />
-        <Input
-          label={strings('placeholder.password')}
-          text={password}
-          onChange={input => setPassword(input)}
-          containerStyle={styles.inputMargin}
-          secure={true}
-        />
-      </View>
-      <Text style={styles.errorText}>
-        {errorMessage !== '' ? errorMessage : ' '}
-      </Text>
-      <View style={styles.buttonContainer}>
-        <Button
-          fetching={props.fetching}
-          text={strings('buttons.login')}
-          onPress={handleLogin}
-          containerStyle={styles.styledButton}
-        />
-      </View>
-    </KeyboardAwareScrollView>
-  );
+    return (
+        <KeyboardAwareScrollView
+            extraHeight={100}
+            style={styles.screenContainer}
+            contentContainerStyle={styles.contentContainer}
+            keyboardShouldPersistTaps={'handled'}
+            bounces={false}>
+            <View style={styles.userForm}>
+                <Input
+                    label={strings('placeholder.username')}
+                    autoCapitalize={'none'}
+                    autoCorrect={false}
+                    spellCheck={false}
+                    text={username}
+                    onChange={input => setUserName(input)}
+                    containerStyle={styles.inputMargin}
+                />
+                <Input
+                    label={strings('placeholder.password')}
+                    text={password}
+                    onChange={input => setPassword(input)}
+                    containerStyle={styles.inputMargin}
+                    secure={true}
+                />
+            </View>
+            <Text style={styles.errorText}>
+                {errorMessage !== '' ? errorMessage : ' '}
+            </Text>
+            <View style={styles.buttonContainer}>
+                <Button
+                    fetching={props.fetching}
+                    text={strings('buttons.login')}
+                    onPress={handleLogin}
+                    containerStyle={styles.styledButton}
+                />
+            </View>
+        </KeyboardAwareScrollView>
+    );
 }
 
 export default connect()(LoginScreen);
