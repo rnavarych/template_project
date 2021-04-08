@@ -20,14 +20,14 @@ function App() {
   store.dispatch(setDirection(I18nManager.isRTL));
 
   return (
-      <SafeAreaProvider>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <Navigation />
-            <HandleNotifications />
-          </PersistGate>
-        </Provider>
-      </SafeAreaProvider>
+    <SafeAreaProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Navigation />
+          <HandleNotifications />
+        </PersistGate>
+      </Provider>
+    </SafeAreaProvider>
   );
 }
 

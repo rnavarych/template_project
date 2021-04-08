@@ -9,5 +9,9 @@
   "errors": {
     "wrongCreads": "Wrong Username or Password",
     "unknown": "Unknown error"
+  },
+  "settings_text": {
+    "text_rtl": "Change layout %{value}",
+    "text_theme": "Change to %{value} mode"
   }
 }
