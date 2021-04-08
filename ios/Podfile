@@ -16,6 +16,8 @@ target 'TemplateProject' do
   pod 'react-native-restart', :path => '../node_modules/react-native-restart'
   pod 'CodePush', :path => '../node_modules/react-native-code-push'
 
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
   target 'TemplateProjectTests' do
     inherit! :complete
     # Pods for testing
