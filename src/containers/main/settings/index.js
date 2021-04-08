@@ -7,19 +7,16 @@ import {changeTab, logEvent} from '../../../analytics';
 import {changeTheme} from '../../../actions/changeTheme';
 import {SwitchLabel} from '../../../components/switchlabel';
 import styles from './styles';
-import text from '../../../l18n/locales/en.json';
+import {strings} from '../../../l18n';
 
 function SettingsScreen(props) {
   const isDark = useSelector(state => state.changeTheme.isDarkTheme);
   const dispatch = useDispatch();
   const {isRtl} = props;
-  const text = text.settings_text.text_rtl.replace(
-    /%{value}/,
-    `${isRtl ? 'RTL' : 'LTR'}`,
-  );
-  const textForTheme = text.settings_text.text_theme.replace(
-    /%{value}/,
-    `${isDark ? 'light' : 'dark'}`,
+  const text = strings('settings_text.text_rtl', isRtl ? 'RTL' : 'LTR');
+  const textForTheme = strings(
+    'settings_text.text_theme',
+    isDark ? 'light' : 'dark',
   );
 
   const toggleSwitch = val => {
