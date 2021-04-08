@@ -20,6 +20,7 @@ import {connect, useSelector} from 'react-redux';
 import LoginScreen from '../containers/auth';
 import HomeScreen from '../containers/main/home';
 import SettingsScreen from '../containers/main/settings';
+import ProfileScreen from '../containers/main/profile';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,6 +32,8 @@ const tabBarIconHandler = (route, focused, color, size) => {
     iconName = focused ? 'ios-home' : 'ios-home-outline';
   } else if (route.name === 'Settings') {
     iconName = focused ? 'ios-settings' : 'ios-settings-outline';
+  } else if (route.name === 'Profile') {
+    iconName = focused ? 'ios-person' : 'ios-person-outline';
   }
 
   return <Ionicons name={iconName} size={size} color={color} />;
@@ -49,6 +52,7 @@ const HomeStackScreen = () => {
       }}>
       <Tab.Screen name={routes.HOME_SCREEN} component={HomeScreen} />
       <Tab.Screen name={routes.SETTINGS_SCREEN} component={SettingsScreen} />
+      <Tab.Screen name={routes.PROFILE_SCREEN} component={ProfileScreen} />
     </Tab.Navigator>
   );
 };
@@ -71,6 +75,14 @@ const Navigation = () => {
           />
           <Stack.Screen
             name={routes.HOME_SCREEN}
+            component={HomeStackScreen}
+            options={{
+              headerShown: false,
+              animationTypeForReplace: 'pop',
+            }}
+          />
+          <Stack.Screen
+            name={routes.PROFILE_SCREEN}
             component={HomeStackScreen}
             options={{
               headerShown: false,
