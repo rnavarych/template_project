@@ -1,25 +1,37 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
-import {Text, Switch} from 'react-native-paper';
-import {connect, useDispatch, useSelector} from 'react-redux';
+import {Text} from 'react-native-paper';
+import {connect, useSelector} from 'react-redux';
+import firestore from '@react-native-firebase/firestore';
+
+import {changeTab} from '../../../analytics/';
 import styles from './styles';
-import {changeTheme} from '../../../actions/changeTheme';
 
 function HomeScreen() {
-  const isDark = useSelector(state => state.changeTheme.isDarkTheme);
-  const dispatch = useDispatch();
-  const toggleSwitch = () => dispatch(changeTheme(!isDark));
+  const [users, setUsers] = useState([]);
+  const username = useSelector(state => state.setUsername.username);
+
+  useEffect(() => {
+    getUsers();
+    changeTab(HomeScreen.name, HomeScreen.name);
+  }, []);
+
+  const getUsers = async () => {
+    const subscriber = await firestore()
+      .collection('users')
+      .onSnapshot(docs => {
+        let users = [];
+        docs.forEach(doc => {
+          users.push(doc.data());
+        });
+        setUsers(users);
+      });
+    return () => subscriber();
+  };
 
   return (
     <View style={styles.contentContainer}>
       <Text>Home Screen</Text>
-      <Switch
-        trackColor={{false: '#767577', true: '#fff'}}
-        thumbColor={isDark ? 'tomato' : '#f4f3f4'}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isDark}
-      />
     </View>
   );
 }

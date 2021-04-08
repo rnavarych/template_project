@@ -2,18 +2,22 @@ import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import auth from '@react-native-firebase/auth';
+
+import {logSignUp} from '../../analytics';
 import Input from '../../components/input';
 import Button from '../../components/button';
 import {strings} from '../../l18n';
 import styles from './styles';
 import * as routes from '../../constants/routes';
+import {setUsername} from '../../actions/setUsername';
 
 function LoginScreen(props) {
-  const [username, setUsername] = useState('');
+  const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setErrorMessage('');
@@ -22,7 +26,11 @@ function LoginScreen(props) {
   const handleLogin = () => {
     auth()
       .signInWithEmailAndPassword(username, password)
-      .then(() => props.navigation.navigate(routes.HOME_SCREEN))
+      .then(() => {
+        dispatch(setUsername(username));
+        logSignUp('email&pass');
+        return props.navigation.navigate(routes.HOME_SCREEN);
+      })
       .catch(error => setErrorMessage(error.message));
   };
 
@@ -40,7 +48,7 @@ function LoginScreen(props) {
           autoCorrect={false}
           spellCheck={false}
           text={username}
-          onChange={input => setUsername(input)}
+          onChange={input => setUserName(input)}
           containerStyle={styles.inputMargin}
         />
         <Input

@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
+import analytics from '@react-native-firebase/analytics';
 import {
   NavigationContainer,
   DarkTheme,
@@ -7,7 +8,11 @@ import {
 } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
+import {
+  Provider as PaperProvider,
+  DarkTheme as PaperDarkTheme,
+  DefaultTheme as PaperDefaultTheme,
+} from 'react-native-paper';
 import * as routes from '../constants/routes';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {connect, useSelector} from 'react-redux';
@@ -51,28 +56,42 @@ const HomeStackScreen = () => {
 const Navigation = () => {
   const isDark = useSelector(state => state.changeTheme.isDarkTheme);
   const theme = isDark ? DarkTheme : DefaultTheme;
+  const themeForPaper = isDark ? PaperDarkTheme : PaperDefaultTheme;
   return (
-    <NavigationContainer theme={theme}>
-      <Stack.Navigator>
-        <Stack.Screen
-          name={routes.LOGIN_SCREEN}
-          component={LoginScreen}
-          options={{
-            headerShown: false,
-            animationTypeForReplace: 'pop',
-          }}
-        />
-        <Stack.Screen
-          name={routes.HOME_SCREEN}
-          component={HomeStackScreen}
-          options={{
-            headerShown: false,
-            animationTypeForReplace: 'pop',
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <PaperProvider theme={themeForPaper}>
+      <NavigationContainer onStateChange={onStateChange} theme={theme}>
+        <Stack.Navigator>
+          <Stack.Screen
+            name={routes.LOGIN_SCREEN}
+            component={LoginScreen}
+            options={{
+              headerShown: false,
+              animationTypeForReplace: 'pop',
+            }}
+          />
+          <Stack.Screen
+            name={routes.HOME_SCREEN}
+            component={HomeStackScreen}
+            options={{
+              headerShown: false,
+              animationTypeForReplace: 'pop',
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
   );
+};
+
+const onStateChange = async state => {
+  const [previousRouteName, currentRouteName] = state.routes;
+
+  if (previousRouteName !== currentRouteName) {
+    await analytics().logScreenView({
+      screen_name: currentRouteName.name,
+      screen_class: currentRouteName.name,
+    });
+  }
 };
 
 export default connect()(Navigation);

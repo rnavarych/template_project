@@ -6,6 +6,7 @@ export default EStyleSheet.create({
     height: 50,
     paddingStart: 10,
     fontSize: 16,
+    color: 'black',
   },
   inputContainer: {
     flexDirection: 'row',
