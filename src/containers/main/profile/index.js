@@ -17,37 +17,23 @@ function ProfileScreen() {
     const [age, setAge] = useState('');
     const [city, setCity] = useState('');
     const [email, setEmail] = useState('');
+    const [editable, setEditable] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [user, setUser] = useState([]);
-  const [users, setUsers] = useState([]);
   const user_email = useSelector(state => state.setUsername.username);
 
   useEffect(() => {
     getUsers();
-
     changeTab(ProfileScreen.name, ProfileScreen.name);
       setErrorMessage('');
-  }, [username, password]);
-
-  useEffect(() => {
-      if (users){
-          users.filter((userInfo) => {
-              if (userInfo.email === user_email) {
-                  setUser(userInfo);
-              };
-          })
-        }
-  }, [users])
+  }, [username]);
 
   const getUsers = async () => {
     const subscriber = await firestore()
       .collection('users')
-      .onSnapshot(docs => {
-        let users = [];
-        docs.forEach(doc => {
-          users.push(doc.data());
-        });
-        setUsers(users);
+       .doc(user_email)
+      .onSnapshot(doc => {
+        setUser(doc.data());
       });
     return () => subscriber();
   };
@@ -59,63 +45,81 @@ function ProfileScreen() {
       contentContainerStyle={styles.contentContainer}
       keyboardShouldPersistTaps={'handled'}
       bounces={false}>
+        {editable ? (
+            <Button
+                text={strings('buttons.cancel')}
+                containerStyle={styles.styledSmallButtonRed}
+                onPress={() => setEditable(false)}
+            />
+        ) : (
+            <Button
+                text={strings('buttons.edit')}
+                containerStyle={styles.styledSmallButton}
+                onPress={() => setEditable(true)}
+            />
+        )}
       <View style={styles.userForm}>
         <Input
-          label={user[0].name}
+          label={'Name'}
           autoCapitalize={'none'}
           autoCorrect={false}
           spellCheck={false}
-          text={'Username'}
+          text={user?.name}
           onChange={input => setUserName(input)}
           containerStyle={styles.inputMargin}
+          editable={editable}
         />
         <Input
-            label={user[0].surname}
+            label={'Surname'}
             autoCapitalize={'none'}
             autoCorrect={false}
             spellCheck={false}
-            text={'Surname'}
+            text={user?.surname}
             onChange={input => setSurName(input)}
             containerStyle={styles.inputMargin}
+            editable={editable}
         />
           <Input
-              label={user[0].age}
+              label={'Age'}
               autoCapitalize={'none'}
               autoCorrect={false}
               spellCheck={false}
-              text={'Age'}
+              text={user?.age}
               onChange={input => setAge(input)}
               containerStyle={styles.inputMargin}
+              editable={editable}
           />
           <Input
-              label={user[0].city}
+              label={'City'}
               autoCapitalize={'none'}
               autoCorrect={false}
               spellCheck={false}
-              text={'City'}
+              text={user?.city}
               onChange={input => setCity(input)}
               containerStyle={styles.inputMargin}
+              editable={editable}
           />
           <Input
-              label={user[0].email}
+              label={'Email'}
               autoCapitalize={'none'}
               autoCorrect={false}
               spellCheck={false}
-              text={'Email'}
+              text={user?.email}
               onChange={input => setEmail(input)}
               containerStyle={styles.inputMargin}
+              editable={editable}
           />
       </View>
       <Text style={styles.errorText}>
         {errorMessage !== '' ? errorMessage : ' '}
       </Text>
       <View style={styles.buttonContainer}>
-        <Button
-          fetching={}
-          text={strings('buttons.login')}
-          onPress={}
-          containerStyle={styles.styledButton}
-        />
+          {editable && (
+              <Button
+                  text={strings('buttons.save')}
+                  containerStyle={styles.styledButton}
+              />
+          )}
       </View>
     </KeyboardAwareScrollView>
   );

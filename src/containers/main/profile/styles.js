@@ -6,16 +6,35 @@ export default EStyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: '7%',
     paddingVertical: '7%',
   },
+  styledSmallButton: {
+    top: 25,
+    bottom: 0,
+    backgroundColor: '$stylishBlue',
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    height: 30,
+    borderRadius: 5,
+    width: 70
+  },
+  styledSmallButtonRed: {
+    top: 25,
+    bottom: 0,
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    backgroundColor: '$warningRed',
+    height: 30,
+    borderRadius: 5,
+    width: 70
+  },
   styledButton: {
     marginVertical: 5,
     backgroundColor: '$stylishBlue',
-    height: 50,
+    height: 40,
     borderRadius: 5,
   },
   buttonContainer: {

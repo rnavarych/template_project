@@ -13,11 +13,8 @@ function SettingsScreen(props) {
   const isDark = useSelector(state => state.changeTheme.isDarkTheme);
   const dispatch = useDispatch();
   const {isRtl} = props;
-  const text = strings('settings_text.text_rtl', isRtl ? 'RTL' : 'LTR');
-  const textForTheme = strings(
-    'settings_text.text_theme',
-    isDark ? 'light' : 'dark',
-  );
+  const text = strings('settings_text.text_rtl');
+  const textForTheme = strings('settings_text.text_theme');
 
   const toggleSwitch = val => {
     I18nManager.forceRTL(val);
