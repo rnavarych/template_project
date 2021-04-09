@@ -18,25 +18,46 @@ function ProfileScreen() {
     const [city, setCity] = useState('');
     const [email, setEmail] = useState('');
     const [editable, setEditable] = useState(false);
+    const [isFetching, setFetching] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
     const [user, setUser] = useState([]);
   const user_email = useSelector(state => state.setUsername.username);
 
   useEffect(() => {
-    getUsers();
+      isFetching ? getUsers() : null;
     changeTab(ProfileScreen.name, ProfileScreen.name);
       setErrorMessage('');
-  }, [username]);
+  }, [user]);
 
   const getUsers = async () => {
+      console.log('lol')
     const subscriber = await firestore()
       .collection('users')
        .doc(user_email)
       .onSnapshot(doc => {
-        setUser(doc.data());
+          setUserName(doc.data().name);
+          setSurName(doc.data().surname);
+          setAge(doc.data().age);
+          setCity(doc.data().city);
+          setEmail(doc.data().email)
       });
     return () => subscriber();
   };
+
+  const updateUserInfo = async () => {
+      await firestore()
+          .collection('users')
+          .doc(user_email)
+          .update({
+              age,
+              city,
+              email,
+              name: username,
+              surname,
+          })
+      setEditable(false);
+      setFetching(false);
+  }
 
   return (
     <KeyboardAwareScrollView
@@ -64,7 +85,7 @@ function ProfileScreen() {
           autoCapitalize={'none'}
           autoCorrect={false}
           spellCheck={false}
-          text={user?.name}
+          text={username}
           onChange={input => setUserName(input)}
           containerStyle={styles.inputMargin}
           editable={editable}
@@ -74,7 +95,7 @@ function ProfileScreen() {
             autoCapitalize={'none'}
             autoCorrect={false}
             spellCheck={false}
-            text={user?.surname}
+            text={surname}
             onChange={input => setSurName(input)}
             containerStyle={styles.inputMargin}
             editable={editable}
@@ -84,7 +105,7 @@ function ProfileScreen() {
               autoCapitalize={'none'}
               autoCorrect={false}
               spellCheck={false}
-              text={user?.age}
+              text={age}
               onChange={input => setAge(input)}
               containerStyle={styles.inputMargin}
               editable={editable}
@@ -94,7 +115,7 @@ function ProfileScreen() {
               autoCapitalize={'none'}
               autoCorrect={false}
               spellCheck={false}
-              text={user?.city}
+              text={city}
               onChange={input => setCity(input)}
               containerStyle={styles.inputMargin}
               editable={editable}
@@ -104,7 +125,7 @@ function ProfileScreen() {
               autoCapitalize={'none'}
               autoCorrect={false}
               spellCheck={false}
-              text={user?.email}
+              text={email}
               onChange={input => setEmail(input)}
               containerStyle={styles.inputMargin}
               editable={editable}
@@ -118,6 +139,7 @@ function ProfileScreen() {
               <Button
                   text={strings('buttons.save')}
                   containerStyle={styles.styledButton}
+                  onPress={updateUserInfo}
               />
           )}
       </View>

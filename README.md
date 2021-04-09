@@ -9,3 +9,7 @@ In the project directory, you should run:
 
 ### `npm i code-push@4.0.2`
 
+
+## Firestore structure
+
+User information is stored in the cloud firestore firebase in the users collection. Each user has a corresponding document, the id of which corresponds to the login to enter. The user document stores information about username, age, city email, surname. You can see all information about users in the firebase console.
