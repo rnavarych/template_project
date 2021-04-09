@@ -4,10 +4,17 @@
     "password": "Password"
   },
   "buttons": {
-    "login": "Sign in"
+    "login": "Sign in",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "save": "Save"
   },
   "errors": {
     "wrongCreads": "Wrong Username or Password",
     "unknown": "Unknown error"
+  },
+  "settings_text": {
+    "text_rtl": "Change direction of layout",
+    "text_theme": "Change theme"
   }
 }
