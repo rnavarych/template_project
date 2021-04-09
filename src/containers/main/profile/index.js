@@ -20,17 +20,15 @@ function ProfileScreen() {
     const [editable, setEditable] = useState(false);
     const [isFetching, setFetching] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
-    const [user, setUser] = useState([]);
   const user_email = useSelector(state => state.setUsername.username);
 
   useEffect(() => {
       isFetching ? getUsers() : null;
     changeTab(ProfileScreen.name, ProfileScreen.name);
       setErrorMessage('');
-  }, [user]);
+  }, []);
 
   const getUsers = async () => {
-      console.log('lol')
     const subscriber = await firestore()
       .collection('users')
        .doc(user_email)
@@ -66,19 +64,11 @@ function ProfileScreen() {
       contentContainerStyle={styles.contentContainer}
       keyboardShouldPersistTaps={'handled'}
       bounces={false}>
-        {editable ? (
-            <Button
-                text={strings('buttons.cancel')}
-                containerStyle={styles.styledSmallButtonRed}
-                onPress={() => setEditable(false)}
-            />
-        ) : (
-            <Button
-                text={strings('buttons.edit')}
-                containerStyle={styles.styledSmallButton}
-                onPress={() => setEditable(true)}
-            />
-        )}
+        <Button
+            text={strings(`${editable ? 'buttons.cancel' : 'buttons.edit'}`)}
+            containerStyle={editable ? styles.styledSmallButtonRed : styles.styledSmallButton}
+            onPress={() => setEditable(!editable)}
+        />
       <View style={styles.userForm}>
         <Input
           label={'Name'}
