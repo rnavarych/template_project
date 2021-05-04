@@ -43,6 +43,14 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>TemplateProject + uses the camera to capture imagery.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to save photos to your photo gallery</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>TemplateProject + uses the gallery to upload media directly from your saved photos.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>TemplateProject + requires microphone access to generate 360° panoramic images from captured videos.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

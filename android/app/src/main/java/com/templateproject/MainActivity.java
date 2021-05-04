@@ -8,6 +8,9 @@ import androidx.annotation.Nullable;
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen;
 
+import android.content.Intent;
+import android.content.res.Configuration;
+
 public class MainActivity extends ReactActivity {
 
   /**
@@ -19,9 +22,19 @@ public class MainActivity extends ReactActivity {
     return "TemplateProject";
   }
 
+
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     SplashScreen.show(this);
     super.onCreate(savedInstanceState);
+  }
+
+  @Override
+  public void onConfigurationChanged(Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+    Intent intent = new Intent("onConfigurationChanged");
+    intent.putExtra("newConfig", newConfig);
+    this.sendBroadcast(intent);
   }
 }

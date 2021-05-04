@@ -21,6 +21,8 @@ import LoginScreen from '../containers/auth';
 import HomeScreen from '../containers/main/home';
 import SettingsScreen from '../containers/main/settings';
 import ProfileScreen from '../containers/main/profile';
+import CameraScreen from '../containers/main/camera';
+import GalleryScreen from '../containers/main/gallery';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -86,6 +88,23 @@ const Navigation = () => {
             component={HomeStackScreen}
             options={{
               headerShown: false,
+              animationTypeForReplace: 'pop',
+            }}
+          />
+          <Stack.Screen
+            name={routes.CAMERA_SCREEN}
+            component={CameraScreen}
+            options={{
+              headerShown: false,
+              animationTypeForReplace: 'pop',
+            }}
+          />
+          <Stack.Screen
+            name={routes.GALLERY_SCREEN}
+            component={GalleryScreen}
+            options={{
+              headerTitle: 'Gallery',
+              headerBackTitle: false,
               animationTypeForReplace: 'pop',
             }}
           />
