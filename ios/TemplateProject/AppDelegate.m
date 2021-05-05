@@ -5,6 +5,8 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
+#import "Orientation.h"
+
 #import <Firebase.h>
 
 #ifdef FB_SONARKIT_ENABLED
@@ -65,5 +67,10 @@ static void InitializeFlipper(UIApplication *application) {
   return [CodePush bundleURL];
 #endif
 }
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+  return [Orientation getOrientation];
+}
+
 
 @end
