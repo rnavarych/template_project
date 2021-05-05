@@ -14,8 +14,6 @@ const GalleryScreen = props => {
   const [photos, setPhotos] = useState([]);
   const [width, setWidth] = useState([]);
 
-  console.log(photos);
-
   useEffect(() => {
     getPhotoFromDevice();
     setWidth(Dimensions.get('window').width);

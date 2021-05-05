@@ -9,10 +9,8 @@ import {
 } from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import styles from './styles';
-import {scale} from '../../utils/cameraUtils';
-import {getStatusBarHeight} from '../../utils/utils';
 import images from '../../configs/images';
-import {underlayColor, backGround} from '../../constants/colors';
+import {underlayColor} from '../../constants/colors';
 
 const CameraView = ({onCameraRef, onCameraButton, onBackButtonPress}) => {
   const _animatedOpacity = new Animated.Value(0);
@@ -43,17 +41,29 @@ const CameraView = ({onCameraRef, onCameraButton, onBackButtonPress}) => {
     setPortraitOrientation(height > width);
   };
 
+  const handleTouch = () => {
+    Animated.sequence([
+      Animated.timing(_animatedOpacity, {
+        toValue: 1,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(_animatedOpacity, {
+        toValue: 0,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+    ]).start();
+    onCameraButton();
+  };
+
   return (
     <View
       style={[
         styles.cameraViewContainer,
         portraitOrientation ? styles.portraitView : styles.landscapeView,
       ]}>
-      {Platform.OS === 'ios' && (
-        <View
-          style={{backgroundColor: backGround, height: getStatusBarHeight()}}
-        />
-      )}
+      {Platform.OS === 'ios' && <View style={styles.headerIOS} />}
       {Platform.OS === 'ios' && (
         <View
           style={
@@ -71,15 +81,10 @@ const CameraView = ({onCameraRef, onCameraButton, onBackButtonPress}) => {
         </View>
       )}
       <Animated.View
-        style={{
-          opacity: _animatedOpacity,
-          position: 'absolute',
-          top: Platform.OS === 'ios' ? getStatusBarHeight() + scale(50) : 0,
-          backgroundColor: 'black',
-          width: cameraWidth,
-          height: cameraHeight,
-          zIndex: 9999,
-        }}
+        style={[
+          styles.animatedStyle,
+          {width: cameraWidth, height: cameraHeight, opacity: _animatedOpacity},
+        ]}
         pointerEvents="none"
       />
       <View style={{width: cameraWidth, height: cameraHeight}}>
@@ -100,27 +105,8 @@ const CameraView = ({onCameraRef, onCameraButton, onBackButtonPress}) => {
             ? styles.portraitUseCameraButtonContainer
             : styles.landscapeUseCameraButtonContainer
         }>
-        <TouchableHighlight
-          underlayColor="transparent"
-          onPress={() => {
-            Animated.sequence([
-              Animated.timing(_animatedOpacity, {
-                toValue: 1,
-                duration: 100,
-                useNativeDriver: true,
-              }),
-              Animated.timing(_animatedOpacity, {
-                toValue: 0,
-                duration: 100,
-                useNativeDriver: true,
-              }),
-            ]).start();
-            onCameraButton();
-          }}>
-          <Image
-            source={images.takePhoto}
-            style={{width: scale(70), height: scale(70)}}
-          />
+        <TouchableHighlight underlayColor="transparent" onPress={handleTouch}>
+          <Image source={images.takePhoto} style={styles.imageStyle} />
         </TouchableHighlight>
       </View>
     </View>

@@ -16,6 +16,7 @@ import {
 import * as routes from '../constants/routes';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {connect, useSelector} from 'react-redux';
+import {strings} from '../l18n';
 
 import LoginScreen from '../containers/auth';
 import HomeScreen from '../containers/main/home';
@@ -103,7 +104,7 @@ const Navigation = () => {
             name={routes.GALLERY_SCREEN}
             component={GalleryScreen}
             options={{
-              headerTitle: 'Gallery',
+              headerTitle: strings('headers.gallery'),
               headerBackTitle: false,
               animationTypeForReplace: 'pop',
             }}

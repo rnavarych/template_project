@@ -1,5 +1,8 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import {scale} from '../../utils/cameraUtils';
+import {getStatusBarHeight} from '../../utils/utils';
+import {_animatedOpacity} from './index';
+import {backGround} from '../../constants/colors';
 
 export default StyleSheet.create({
   content: {
@@ -53,5 +56,19 @@ export default StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     flexDirection: 'row',
+  },
+  animatedStyle: {
+    position: 'absolute',
+    top: Platform.OS === 'ios' ? getStatusBarHeight() + scale(50) : 0,
+    backgroundColor: 'black',
+    zIndex: 9999,
+  },
+  headerIOS: {
+    backgroundColor: backGround,
+    height: getStatusBarHeight(),
+  },
+  imageStyle: {
+    width: scale(70),
+    height: scale(70),
   },
 });
