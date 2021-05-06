@@ -16,12 +16,17 @@ import {
 import * as routes from '../constants/routes';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {connect, useSelector} from 'react-redux';
+import {strings} from '../l18n';
 
 import LoginScreen from '../containers/auth';
 import HomeScreen from '../containers/main/home';
 import SettingsScreen from '../containers/main/settings';
 import ProfileScreen from '../containers/main/profile';
+
 import MapScreen from '../containers/main/map';
+import CameraScreen from '../containers/main/camera';
+import GalleryScreen from '../containers/main/gallery';
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -95,6 +100,23 @@ const Navigation = () => {
             component={HomeStackScreen}
             options={{
               headerShown: false,
+              animationTypeForReplace: 'pop',
+            }}
+          />
+          <Stack.Screen
+            name={routes.CAMERA_SCREEN}
+            component={CameraScreen}
+            options={{
+              headerShown: false,
+              animationTypeForReplace: 'pop',
+            }}
+          />
+          <Stack.Screen
+            name={routes.GALLERY_SCREEN}
+            component={GalleryScreen}
+            options={{
+              headerTitle: strings('headers.gallery'),
+              headerBackTitle: false,
               animationTypeForReplace: 'pop',
             }}
           />

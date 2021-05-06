@@ -3,6 +3,9 @@
     "username": "User Name",
     "password": "Password"
   },
+  "headers": {
+    "gallery": "Gallery"
+  },
   "buttons": {
     "login": "Sign in",
     "edit": "Edit",
