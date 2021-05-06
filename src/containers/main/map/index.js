@@ -4,13 +4,15 @@ import {
   View,
   StyleSheet,
   PermissionsAndroid,
-  ActivityIndicator,
   Alert,
 } from 'react-native';
 import MapView, {Polyline, PROVIDER_GOOGLE} from 'react-native-maps';
 import firestore from '@react-native-firebase/firestore';
 import Geolocation from 'react-native-geolocation-service';
 
+import Progress from '../../../components/Progress';
+
+import {polylineColor} from '../../../constants/colors'
 import {
   requestLocationPermission,
   requestLocationCoarsePermission,
@@ -20,7 +22,7 @@ const Map = () => {
   const [showSpinner, setSpinner] = useState(true);
   const [watchId, setWatchId] = useState(null);
   const [coordinates, setCoordinates] = useState(true);
-  const doc = 'E6i8fSGMPJsR1jN2KoYz'
+  const doc = 'E6i8fSGMPJsR1jN2KoYz';
 
   const getRoute = async () => {
     await firestore()
@@ -96,17 +98,7 @@ const Map = () => {
     () => Geolocation.clearWatch(watchId);
   }, []);
 
-  if (showSpinner)
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignContent: 'center',
-        }}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+  if (showSpinner) return <Progress />;
 
   return (
     <View style={{...StyleSheet.absoluteFill}}>
@@ -122,7 +114,7 @@ const Map = () => {
         }}>
         <Polyline
           coordinates={[...Object.values(coordinates)]}
-          strokeColor="#000"
+          strokeColor={polylineColor}
           strokeWidth={3}
         />
       </MapView>
