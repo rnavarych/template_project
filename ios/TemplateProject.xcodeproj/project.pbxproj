@@ -11,9 +11,11 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1D4CF87B261760AB002C6933 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D4CF87A261760AB002C6933 /* GoogleService-Info.plist */; };
 		395966EF9F705F07045512A6 /* libPods-TemplateProject-TemplateProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1ED5ADCDD4D0C534BE88072 /* libPods-TemplateProject-TemplateProjectTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		A79F1E902643C93900504C01 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A79F1E8F2643C93900504C01 /* MapKit.framework */; };
+		A79F1E962643CA5B00504C01 /* 1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F1E952643CA5B00504C01 /* 1.swift */; };
+		A79F1F562643CEBB00504C01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A79F1F552643CEBB00504C01 /* GoogleService-Info.plist */; };
 		B760EBAF2F7113B3162E4C04 /* libPods-TemplateProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D2DFD89D70B65BEDD45093 /* libPods-TemplateProject.a */; };
 /* End PBXBuildFile section */
 
@@ -37,12 +39,15 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = TemplateProject/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TemplateProject/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TemplateProject/main.m; sourceTree = "<group>"; };
-		1D4CF87A261760AB002C6933 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1DBBF6752615F71C004949C9 /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNCAsyncStorage.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EAEE78FC8307DD9A89916AB /* Pods-TemplateProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TemplateProject.debug.xcconfig"; path = "Target Support Files/Pods-TemplateProject/Pods-TemplateProject.debug.xcconfig"; sourceTree = "<group>"; };
 		7D4C10A850C6A046DDBBBA09 /* Pods-TemplateProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TemplateProject.release.xcconfig"; path = "Target Support Files/Pods-TemplateProject/Pods-TemplateProject.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = TemplateProject/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86501A336CFF92C0FEB890D8 /* Pods-TemplateProject-TemplateProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TemplateProject-TemplateProjectTests.release.xcconfig"; path = "Target Support Files/Pods-TemplateProject-TemplateProjectTests/Pods-TemplateProject-TemplateProjectTests.release.xcconfig"; sourceTree = "<group>"; };
+		A74ACF2426415ADB00368E07 /* TemplateProject-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TemplateProject-Bridging-Header.h"; sourceTree = "<group>"; };
+		A79F1E8F2643C93900504C01 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		A79F1E952643CA5B00504C01 /* 1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1.swift; sourceTree = "<group>"; };
+		A79F1F552643CEBB00504C01 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B1ED5ADCDD4D0C534BE88072 /* libPods-TemplateProject-TemplateProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TemplateProject-TemplateProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8D2DFD89D70B65BEDD45093 /* libPods-TemplateProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TemplateProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C23228F7746A1B13F6CDEC46 /* Pods-TemplateProject-TemplateProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TemplateProject-TemplateProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-TemplateProject-TemplateProjectTests/Pods-TemplateProject-TemplateProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -62,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A79F1E902643C93900504C01 /* MapKit.framework in Frameworks */,
 				B760EBAF2F7113B3162E4C04 /* libPods-TemplateProject.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,13 +95,15 @@
 		13B07FAE1A68108700A75B9A /* TemplateProject */ = {
 			isa = PBXGroup;
 			children = (
-				1D4CF87A261760AB002C6933 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				A79F1F552643CEBB00504C01 /* GoogleService-Info.plist */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				A74ACF2426415ADB00368E07 /* TemplateProject-Bridging-Header.h */,
+				A79F1E952643CA5B00504C01 /* 1.swift */,
 			);
 			name = TemplateProject;
 			sourceTree = "<group>";
@@ -103,6 +111,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A79F1E8F2643C93900504C01 /* MapKit.framework */,
 				1DBBF6752615F71C004949C9 /* libRNCAsyncStorage.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				B8D2DFD89D70B65BEDD45093 /* libPods-TemplateProject.a */,
@@ -214,7 +223,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
@@ -251,7 +260,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				1D4CF87B261760AB002C6933 /* GoogleService-Info.plist in Resources */,
+				A79F1F562643CEBB00504C01 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,6 +451,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A79F1E962643CA5B00504C01 /* 1.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -462,6 +472,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C23228F7746A1B13F6CDEC46 /* Pods-TemplateProject-TemplateProjectTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -489,6 +500,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 86501A336CFF92C0FEB890D8 /* Pods-TemplateProject-TemplateProjectTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = TemplateProjectTests/Info.plist;
@@ -529,6 +541,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TemplateProject;
+				SWIFT_OBJC_BRIDGING_HEADER = "TemplateProject-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -554,6 +567,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TemplateProject;
+				SWIFT_OBJC_BRIDGING_HEADER = "TemplateProject-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

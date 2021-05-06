@@ -21,6 +21,7 @@ import LoginScreen from '../containers/auth';
 import HomeScreen from '../containers/main/home';
 import SettingsScreen from '../containers/main/settings';
 import ProfileScreen from '../containers/main/profile';
+import MapScreen from '../containers/main/map';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -28,12 +29,19 @@ const Tab = createBottomTabNavigator();
 const tabBarIconHandler = (route, focused, color, size) => {
   let iconName;
 
-  if (route.name === 'Home') {
-    iconName = focused ? 'ios-home' : 'ios-home-outline';
-  } else if (route.name === 'Settings') {
-    iconName = focused ? 'ios-settings' : 'ios-settings-outline';
-  } else if (route.name === 'Profile') {
-    iconName = focused ? 'ios-person' : 'ios-person-outline';
+  switch (route.name) {
+    case routes.HOME_SCREEN:
+      iconName = focused ? 'ios-home' : 'ios-home-outline';
+      break;
+    case routes.SETTINGS_SCREEN:
+      iconName = focused ? 'ios-settings' : 'ios-settings-outline';
+      break;
+    case routes.PROFILE_SCREEN:
+      iconName = focused ? 'ios-person' : 'ios-person-outline';
+      break;
+    case routes.MAP_SCREEN:
+      iconName = focused ? 'ios-map' : 'ios-map-outline';
+      break;
   }
 
   return <Ionicons name={iconName} size={size} color={color} />;
@@ -53,6 +61,7 @@ const HomeStackScreen = () => {
       <Tab.Screen name={routes.HOME_SCREEN} component={HomeScreen} />
       <Tab.Screen name={routes.SETTINGS_SCREEN} component={SettingsScreen} />
       <Tab.Screen name={routes.PROFILE_SCREEN} component={ProfileScreen} />
+      <Tab.Screen name={routes.MAP_SCREEN} component={MapScreen} />
     </Tab.Navigator>
   );
 };
@@ -64,7 +73,7 @@ const Navigation = () => {
   return (
     <PaperProvider theme={themeForPaper}>
       <NavigationContainer onStateChange={onStateChange} theme={theme}>
-        <Stack.Navigator>
+        <Stack.Navigator >
           <Stack.Screen
             name={routes.LOGIN_SCREEN}
             component={LoginScreen}
