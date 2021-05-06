@@ -56,7 +56,7 @@ static void InitializeFlipper(UIApplication *application) {
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  [GMSServices provideAPIKey:@"AIzaSyBCFyOGQdTW3T-LcA51MWyxnxPgM7j-fxM"];
+  [GMSServices provideAPIKey:@"AIzaSyAgVz-sTKGsMciikB600jcGUhSVWOekkfU"];
   return YES;
 }
 
