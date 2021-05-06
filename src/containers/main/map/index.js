@@ -12,7 +12,9 @@ import Geolocation from 'react-native-geolocation-service';
 
 import Progress from '../../../components/Progress';
 
-import {polylineColor} from '../../../constants/colors'
+import { initialRegion } from '../../../constants/map'
+import {strings} from '../../../l18n';
+import {polylineColor} from '../../../constants/colors';
 import {
   requestLocationPermission,
   requestLocationCoarsePermission,
@@ -21,7 +23,7 @@ import {
 const Map = () => {
   const [showSpinner, setSpinner] = useState(true);
   const [watchId, setWatchId] = useState(null);
-  const [coordinates, setCoordinates] = useState(true);
+  const [coordinates, setCoordinates] = useState({});
   const doc = 'E6i8fSGMPJsR1jN2KoYz';
 
   const getRoute = async () => {
@@ -35,7 +37,7 @@ const Map = () => {
       })
       .catch(err => {
         setSpinner(false);
-        console.log(err);
+        showErr(err);
       });
   };
 
@@ -55,20 +57,23 @@ const Map = () => {
   };
 
   const showErr = err =>
-    Alert.alert('Error', err.message, [{text: 'OK', onPress: () => {}}]);
+    Alert.alert(strings('alert.titleErr'), err.message, [
+      {text: strings('alert.positiveBtn'), onPress: () => {}},
+    ]);
 
   const getPermissionAndTrackUser = async () => {
     const options = {
       enableHighAccuracy: false,
       timeout: 20000,
       maximumAge: 1000,
+      distanceFilter: 300,
+      useSignificantChanges: true,
     };
     if (Platform.OS === 'ios') {
-      setWatchId(Geolocation.watchPosition(sendUserLocationToFb, showErr), {
-        ...options,
-        distanceFilter: 300,
-        useSignificantChanges: true,
-      });
+      setWatchId(
+        Geolocation.watchPosition(sendUserLocationToFb, showErr),
+        options,
+      );
     } else {
       try {
         const granted = await requestLocationPermission();
@@ -77,13 +82,11 @@ const Map = () => {
           granted === PermissionsAndroid.RESULTS.GRANTED &&
           grantedCoarse === PermissionsAndroid.RESULTS.GRANTED
         ) {
-          setWatchId(Geolocation.watchPosition(sendUserLocationToFb, showErr), {
-            ...options,
-            distanceFilter: 300,
-            useSignificantChanges: true,
-          });
+          setWatchId(
+            Geolocation.watchPosition(sendUserLocationToFb, showErr, options),
+          );
         } else {
-          const err = new Error('Permissions denied');
+          const err = new Error(strings('permission.denied'));
           showErr(err);
         }
       } catch (err) {
@@ -106,14 +109,9 @@ const Map = () => {
         provider={PROVIDER_GOOGLE}
         showsUserLocation={true}
         style={{...StyleSheet.absoluteFill}}
-        initialRegion={{
-          latitude: 53.902334,
-          longitude: 27.5618791,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}>
+        initialRegion={initialRegion}>
         <Polyline
-          coordinates={[...Object.values(coordinates)]}
+          coordinates={coordinates}
           strokeColor={polylineColor}
           strokeWidth={3}
         />

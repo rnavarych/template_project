@@ -4,10 +4,10 @@ import {View, ActivityIndicator} from 'react-native'
 import {progressColor} from '../../constants/colors'
 import styles from './style'
 
-const Progress = (props) => {
+const Progress = ({style}) => {
   return (
     <View
-      style={[styles.container,props.style?props.style:null]}>
+      style={[styles.container,style]}>
       <ActivityIndicator size="large" color={progressColor} />
     </View>
   );
