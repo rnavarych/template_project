@@ -1,4 +1,11 @@
 {
+  "alert":{
+    "titleErr":"Error",
+    "positiveBtn": "Ok"
+  },
+  "permission":{
+    "denied": "Permissions denied"
+  },
   "placeholder": {
     "username": "User Name",
     "password": "Password"
