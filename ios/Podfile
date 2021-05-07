@@ -17,6 +17,12 @@ target 'TemplateProject' do
   pod 'CodePush', :path => '../node_modules/react-native-code-push'
 
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+  
+  # React Native Maps dependencies
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', :path => rn_maps_path
+  pod 'GoogleMaps'
+  pod 'Google-Maps-iOS-Utils'
 
   target 'TemplateProjectTests' do
     inherit! :complete

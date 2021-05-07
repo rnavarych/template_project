@@ -1,6 +1,10 @@
 export const switchTrackF = '#767577';
 export const switchTrackT = '#81b0ff';
 
+export const progressColor = '#0000ff'
+
+export const polylineColor = '#fc7979'
+
 export const switchThumbT = '#f5dd4b';
 export const switchThumbF = '#f4f3f4';
 

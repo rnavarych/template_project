@@ -6,8 +6,8 @@
 #import <React/RCTRootView.h>
 
 #import "Orientation.h"
-
 #import <Firebase.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
@@ -56,6 +56,7 @@ static void InitializeFlipper(UIApplication *application) {
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  [GMSServices provideAPIKey:@"AIzaSyAgVz-sTKGsMciikB600jcGUhSVWOekkfU"];
   return YES;
 }
 
