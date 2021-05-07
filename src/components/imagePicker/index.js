@@ -1,9 +1,11 @@
 import React, {useState, useRef} from 'react';
-import {View, Text, TouchableOpacity, Alert, Image} from 'react-native';
+import {View, Text, Alert} from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
+import CameraRoll from '@react-native-community/cameraroll';
 import Button from '../../components/button';
+import PickerOptionButton from '../../components/pickerOptionButton';
 import {strings} from '../../l18n';
 import styles from './styles';
 
@@ -26,6 +28,7 @@ const PhotoPicker = () => {
       const source = {uri: response.uri};
       setImageSource(source.uri);
     });
+    CameraRoll.save(imageSource);
   };
 
   const choosePhotoFromLibrary = () => {
@@ -43,7 +46,6 @@ const PhotoPicker = () => {
         Alert.alert(strings('alert.select_img'));
       } else {
         const source = {uri: response.uri};
-        console.log({source});
         setImageSource(source.uri);
       }
     });
@@ -57,25 +59,18 @@ const PhotoPicker = () => {
           {strings('buttons.choose_pic')}
         </Text>
       </View>
-      <TouchableOpacity
-        style={styles.panelButton}
-        onPress={takePhotoFromCamera}>
-        <Text style={styles.panelButtonTitle}>
-          {strings('buttons.take_photo')}
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.panelButton}
-        onPress={choosePhotoFromLibrary}>
-        <Text style={styles.panelButtonTitle}>
-          {strings('buttons.choose_from_lib')}
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.panelButton}
-        onPress={() => sheetRef.current.snapTo(1)}>
-        <Text style={styles.panelButtonTitle}>{strings('buttons.cancel')}</Text>
-      </TouchableOpacity>
+      <PickerOptionButton
+        clickOption={takePhotoFromCamera}
+        optionText={strings('buttons.take_photo')}
+      />
+      <PickerOptionButton
+        clickOption={choosePhotoFromLibrary}
+        optionText={strings('buttons.choose_from_lib')}
+      />
+      <PickerOptionButton
+        clickOption={() => sheetRef.current.snapTo(1)}
+        optionText={strings('buttons.cancel')}
+      />
     </View>
   );
 

@@ -1,10 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {
-  panelButton,
-  panelHandler,
-  commandButton,
-  shadowColor,
-} from '../../constants/colors';
+import {panelHandler, commandButton, shadowColor} from '../../constants/colors';
 
 export default StyleSheet.create({
   content: {
@@ -51,18 +46,6 @@ export default StyleSheet.create({
     color: 'gray',
     height: 30,
     marginBottom: 10,
-  },
-  panelButton: {
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: panelButton,
-    alignItems: 'center',
-    marginVertical: 7,
-  },
-  panelButtonTitle: {
-    fontSize: 17,
-    fontWeight: 'bold',
-    color: 'white',
   },
   animated: {
     margin: 50,
