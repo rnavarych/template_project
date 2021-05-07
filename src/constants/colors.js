@@ -8,3 +8,8 @@ export const switchBgIos = '#3e3e3e';
 
 export const underlayColor = 'rgba(0, 0, 0, 0)';
 export const backGround = '#182229';
+
+export const panelButton = '#FF6347';
+export const panelHandler = '#00000040';
+export const commandButton = '#FF6347';
+export const shadowColor = '#333333';

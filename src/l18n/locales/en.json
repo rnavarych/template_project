@@ -10,11 +10,20 @@
     "login": "Sign in",
     "edit": "Edit",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "upload_photo": "Upload Photo",
+    "choose_pic": "Choose A Picture",
+    "take_photo": "Take Photo",
+    "choose_from_lib": "Choose From Library",
+    "pick_img": "Pick Image",
+    "camera": "Camera"
   },
   "errors": {
     "wrongCreads": "Wrong Username or Password",
     "unknown": "Unknown error"
+  },
+  "alert": {
+    "select_img": "You did not select any image"
   },
   "settings_text": {
     "text_rtl": "Change direction of layout",

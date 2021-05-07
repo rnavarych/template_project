@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   content: {
-    marginTop: 5,
+    marginTop: 10,
     marginLeft: 15,
     marginRight: 15,
     borderRadius: 10,
@@ -14,10 +14,14 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  container: {
+    flex: 1,
+    paddingTop: 50,
+  },
   textStyle: {
-    marginTop: 10,
+    marginTop: 5,
     color: '#fff',
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
   },
   icon: {

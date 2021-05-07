@@ -601,6 +601,8 @@ PODS:
     - React-Core
   - react-native-cameraroll (4.0.4):
     - React-Core
+  - react-native-image-picker (3.5.0):
+    - React-Core
   - react-native-orientation-locker (1.2.0):
     - React
   - react-native-restart (0.0.22):
@@ -765,6 +767,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-camera (from `../node_modules/react-native-camera`)
   - "react-native-cameraroll (from `../node_modules/@react-native-community/cameraroll`)"
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
   - react-native-restart (from `../node_modules/react-native-restart`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -865,6 +868,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-camera"
   react-native-cameraroll:
     :path: "../node_modules/@react-native-community/cameraroll"
+  react-native-image-picker:
+    :path: "../node_modules/react-native-image-picker"
   react-native-orientation-locker:
     :path: "../node_modules/react-native-orientation-locker"
   react-native-restart:
@@ -973,6 +978,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 0ae35a37b20d5e031eb020a69cc5afdbd6406301
   react-native-camera: 9e55a09596b8c4e41eb7d4cce7c39826990c3cac
   react-native-cameraroll: 88f4e62d9ecd0e1f253abe4f685474f2ea14bfa2
+  react-native-image-picker: 05eefd9232123c5ebde7979c3eefb890b57a87ff
   react-native-orientation-locker: 47aaa55d59bfc1613804dc22f159e6bb1cca5f30
   react-native-restart: 733a51ad137f15b0f8dc34c4082e55af7da00979
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
@@ -1006,6 +1012,6 @@ SPEC CHECKSUMS:
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Yoga: 8c8436d4171c87504c648ae23b1d81242bdf3bbf
 
-PODFILE CHECKSUM: 76300d8b8eab91603c5ed0f7cbbc342fa4bf79bb
+PODFILE CHECKSUM: da7e5b2c71f11fccb9bc760c5726991d453b5dab
 
 COCOAPODS: 1.10.1
