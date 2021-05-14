@@ -1,11 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  FlatList,
-  Dimensions,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {View, FlatList, Dimensions, Image} from 'react-native';
 import {connect} from 'react-redux';
 import CameraRoll from '@react-native-community/cameraroll';
 import styles from './styles';
