@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "762974238886",
+    "firebase_url": "https://push-notifications-ce188-default-rtdb.firebaseio.com",
     "project_id": "push-notifications-ce188",
     "storage_bucket": "push-notifications-ce188.appspot.com"
   },
@@ -29,6 +30,13 @@
             {
               "client_id": "762974238886-vi33lakpf5qer55uh5qhvlce3l6o116q.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "762974238886-mc073k7m3aj4bfbbvihbm0291f9koakg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.TemplateProject"
+              }
             }
           ]
         }
@@ -58,6 +66,13 @@
             {
               "client_id": "762974238886-vi33lakpf5qer55uh5qhvlce3l6o116q.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "762974238886-mc073k7m3aj4bfbbvihbm0291f9koakg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.TemplateProject"
+              }
             }
           ]
         }

@@ -1,7 +1,8 @@
 {
   "alert":{
     "titleErr":"Error",
-    "positiveBtn": "Ok"
+    "positiveBtn": "Ok",
+    "select_img": "You did not select any image"
   },
   "permission":{
     "denied": "Permissions denied"
@@ -28,9 +29,6 @@
   "errors": {
     "wrongCreads": "Wrong Username or Password",
     "unknown": "Unknown error"
-  },
-  "alert": {
-    "select_img": "You did not select any image"
   },
   "settings_text": {
     "text_rtl": "Change direction of layout",

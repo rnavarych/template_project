@@ -5,6 +5,7 @@ export default EStyleSheet.create({
     flex: 1,
     height: 50,
     paddingStart: 10,
+    paddingRight: 25,
     fontSize: 16,
     color: 'black',
   },
@@ -24,6 +25,11 @@ export default EStyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     marginBottom: 5,
+  },
+  icon: {
+    position: 'absolute',
+    zIndex: 1,
+    right: 10,
   },
   container: {alignItems: 'flex-start', width: '100%'},
 });

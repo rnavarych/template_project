@@ -4,6 +4,7 @@ import {Text} from 'react-native-paper';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {connect, useDispatch} from 'react-redux';
 import auth from '@react-native-firebase/auth';
+import * as yup from 'yup';
 
 import {logSignUp} from '../../analytics';
 import Input from '../../components/input';
@@ -16,24 +17,32 @@ import {setUsername} from '../../actions/setUsername';
 function LoginScreen(props) {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [secure, setSecure] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
+  const schema = yup.object().shape({
+    username: yup.string().min(5).max(20).required(),
+    password: yup.string().min(8).required()
+  });
 
   useEffect(() => {
     setErrorMessage('');
   }, [username, password]);
 
-  const handleLogin = () => {
-    auth()
-      .signInWithEmailAndPassword(username, password)
-      .then(() => {
-        dispatch(setUsername(username));
-        logSignUp('email&pass');
-        return props.navigation.navigate(routes.HOME_SCREEN);
-      })
-      .catch(error => setErrorMessage(error.message));
+  const handleLogin = async() => {
+    try {
+      await schema.validate({username, password})
+      await auth().signInWithEmailAndPassword(username, password)
+      dispatch(setUsername(username))
+      logSignUp('email&pass');
+      props.navigation.navigate(routes.HOME_SCREEN);
+    } catch (error) {
+      setErrorMessage(error.message)
+    }      
   };
 
+  const onIconPress = () => setSecure(!secure)
+  
   return (
     <KeyboardAwareScrollView
       extraHeight={100}
@@ -52,11 +61,13 @@ function LoginScreen(props) {
           containerStyle={styles.inputMargin}
         />
         <Input
+          iconName={secure?'ios-eye-outline': 'ios-eye-off-outline'}
           label={strings('placeholder.password')}
           text={password}
           onChange={input => setPassword(input)}
           containerStyle={styles.inputMargin}
-          secure={true}
+          onIconPress={onIconPress}
+          secure={secure}
         />
       </View>
       <Text style={styles.errorText}>

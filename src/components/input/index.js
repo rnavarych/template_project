@@ -1,6 +1,7 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, TouchableWithoutFeedback} from 'react-native';
 import {TextInput, Text} from 'react-native-paper';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import styles from './styles';
 
@@ -16,12 +17,24 @@ function Input(props) {
     autoCorrect,
     spellCheck,
     keyboardType,
+    iconName,
+    onIconPress,
+    iconStyles
   } = props;
 
   return (
     <View style={[styles.container, containerStyle]}>
       <Text style={styles.text}>{label}</Text>
       <View style={styles.inputContainer}>
+        {iconName && onIconPress ? (
+          <TouchableWithoutFeedback onPress={onIconPress}>
+            <Ionicons
+              style={[styles.icon, iconStyles]}
+              size={24}
+              name={iconName}
+            />
+          </TouchableWithoutFeedback>
+        ) : null}
         <TextInput
           style={styles.input}
           placeholder={placeholder}
