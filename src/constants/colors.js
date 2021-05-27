@@ -17,3 +17,6 @@ export const panelButton = '#FF6347';
 export const panelHandler = '#00000040';
 export const commandButton = '#FF6347';
 export const shadowColor = '#333333';
+
+export const focusedBtn = 'tomato'
+export const unFocusedBtn = 'gray'

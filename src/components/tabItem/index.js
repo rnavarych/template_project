@@ -2,6 +2,7 @@ import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import {focusedBtn, unFocusedBtn} from '../../constants/colors';
 import styles from './styles';
 import * as routes from '../../constants/routes';
 
@@ -40,14 +41,10 @@ const TabItem = ({index, onPress, descriptors, route, isFocused}) => {
 
   return (
     <TouchableOpacity
-      accessibilityRole="button"
-      accessibilityState={isFocused ? {selected: true} : {}}
-      accessibilityLabel={options.tabBarAccessibilityLabel}
-      testID={options.tabBarTestID}
       onPress={() => onPress(isFocused, index, route)}
       style={styles.btn}>
       <View style={styles.tabBarItem}>
-        {tabBarIconHandler(route, isFocused ? 'tomato' : 'gray', 24)}
+        {tabBarIconHandler(route, isFocused ? focusedBtn : unFocusedBtn, 24)}
       </View>
     </TouchableOpacity>
   );

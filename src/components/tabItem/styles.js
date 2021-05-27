@@ -9,6 +9,6 @@ export default StyleSheet.create({
     alignSelf: 'center',
   },
   focusStyles:{
-    top: -5
+    top: -7
   }
 });
