@@ -15,8 +15,8 @@ import * as routes from '../../constants/routes';
 import {setUsername} from '../../actions/setUsername';
 
 function LoginScreen(props) {
-  const [username, setUserName] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUserName] = useState('test@test.com');
+  const [password, setPassword] = useState('Aa123456');
   const [secure, setSecure] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
@@ -27,6 +27,7 @@ function LoginScreen(props) {
 
   useEffect(() => {
     setErrorMessage('');
+    handleLogin()
   }, [username, password]);
 
   const handleLogin = async() => {

@@ -20,7 +20,7 @@ const sh = shape
   .line()
   .x(d => d[0])
   .y(d => d[1])
-  .curve(shape.curveBasis)([
+  ([
   [0.5083041135081515, 0.5000008447564119],
   [2.4964497411131554, 0.54979611151141],
   [4.496909349782858, 0.703637523079291],
@@ -154,7 +154,7 @@ function CustomTabBar({state, descriptors, navigation}) {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
   const [leftValue] = useState(new Animated.Value(diff + tabWidth * 0));
   const {colors} = useTheme()
-  console.log(colors)
+
   const animeStyles = {
     left: leftValue,
   };
