@@ -6,8 +6,7 @@ export default StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
     borderRadius: 10,
-    paddingTop: 40,
-    paddingBottom: 40,
+    paddingVertical: 5,
     backgroundColor: 'tomato',
   },
   center: {
