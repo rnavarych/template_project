@@ -7,7 +7,7 @@ import {
   DefaultTheme,
 } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useNavigationState} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   Provider as PaperProvider,
@@ -55,14 +55,27 @@ const tabBarIconHandler = (route, focused, color, size) => {
 const HomeStackScreen = () => {
   const username = useSelector(state => state.auth.username);
   const {reset} = useNavigation();
+  const lastScreen = useNavigationState(state => {
+    const lastScreen = [];
+    const currentRouteTop = state.routeNames[state.index];
+    lastScreen[0] = currentRouteTop;
+    if (state.routes[state.index].state) {
+      const index = state.routes[state.index].state.index;
+      const currentRoutChild =
+        state.routes[state.index].state.routeNames[index];
+      lastScreen[1] = {screen: currentRoutChild};
+    }
+    return lastScreen;
+  });
   const dateExpire = new Date().getTime() + 1000 * 10 * 60;
 
   useEffect(() => {
     const interval = setInterval(() => {
+      console.log(new Date().getTime() >= dateExpire, dateExpire);
       if (new Date().getTime() >= dateExpire) {
         reset({
           index: 0,
-          routes: [{name: routes.LOGIN_SCREEN, params: {username}}],
+          routes: [{name: routes.LOGIN_SCREEN, params: {username, lastScreen}}],
         });
       }
     }, 1000 * 60);
@@ -70,7 +83,7 @@ const HomeStackScreen = () => {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [lastScreen]);
 
   return (
     <Tab.Navigator

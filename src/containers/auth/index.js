@@ -18,7 +18,7 @@ import {setUsername} from '../../actions/setUsername';
 function LoginScreen(props) {
   const {params} = useRoute();
   const [username, setUserName] = useState(
-    params?.username ? params.username : '',
+    params && params.username ? params.username : '',
   );
   const [password, setPassword] = useState('');
   const [secure, setSecure] = useState(true);
@@ -37,11 +37,15 @@ function LoginScreen(props) {
     try {
       await schema.validate({username, password});
       await auth().signInWithEmailAndPassword(username, password);
-      if (!params?.username) {
+      setUserName('');
+      setPassword('');
+      if (params) {
+        props.navigation.navigate(...params.lastScreen);
+      } else {
         dispatch(setUsername(username));
         logSignUp('email&pass');
+        props.navigation.navigate(routes.HOME_SCREEN);
       }
-      props.navigation.navigate(routes.HOME_SCREEN);
     } catch (error) {
       setErrorMessage(error.message);
     }
