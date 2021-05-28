@@ -38,7 +38,6 @@ const ImageList = () => {
       renderItem={props => <ImageItem {...props} />}
       style={styles.container}
       keyExtractor={(item, index) => index.toString()}>
-      <Text>Hello from text12</Text>
     </FlatList>
   );
 };
