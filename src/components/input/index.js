@@ -5,22 +5,20 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import styles from './styles';
 
-function Input(props) {
-  const {
-    secure = false,
-    label,
-    text,
-    placeholder,
-    onChange,
-    containerStyle,
-    autoCapitalize,
-    autoCorrect,
-    spellCheck,
-    keyboardType,
-    iconName,
-    onIconPress,
-    iconStyles
-  } = props;
+function Input({secure = false,
+  label,
+  text,
+  placeholder,
+  onChange,
+  containerStyle,
+  autoCapitalize,
+  autoCorrect,
+  spellCheck,
+  keyboardType,
+  iconName,
+  onIconPress,
+  iconStyles, ...props}) {
+
 
   return (
     <View style={[styles.container, containerStyle]}>
@@ -47,6 +45,7 @@ function Input(props) {
           spellCheck={spellCheck}
           keyboardType={keyboardType}
           editable={props.editable}
+          {...props}
         />
       </View>
     </View>

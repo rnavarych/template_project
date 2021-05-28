@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {connect, useDispatch} from 'react-redux';
+import {useRoute} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import * as yup from 'yup';
 
@@ -15,34 +16,39 @@ import * as routes from '../../constants/routes';
 import {setUsername} from '../../actions/setUsername';
 
 function LoginScreen(props) {
-  const [username, setUserName] = useState('');
+  const {params} = useRoute();
+  const [username, setUserName] = useState(
+    params?.username ? params.username : '',
+  );
   const [password, setPassword] = useState('');
   const [secure, setSecure] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
   const schema = yup.object().shape({
     username: yup.string().min(5).max(20).required(),
-    password: yup.string().min(8).required()
+    password: yup.string().min(8).required(),
   });
 
   useEffect(() => {
     setErrorMessage('');
   }, [username, password]);
 
-  const handleLogin = async() => {
+  const handleLogin = async () => {
     try {
-      await schema.validate({username, password})
-      await auth().signInWithEmailAndPassword(username, password)
-      dispatch(setUsername(username))
-      logSignUp('email&pass');
+      await schema.validate({username, password});
+      await auth().signInWithEmailAndPassword(username, password);
+      if (!params?.username) {
+        dispatch(setUsername(username));
+        logSignUp('email&pass');
+      }
       props.navigation.navigate(routes.HOME_SCREEN);
     } catch (error) {
-      setErrorMessage(error.message)
-    }      
+      setErrorMessage(error.message);
+    }
   };
 
-  const onIconPress = () => setSecure(!secure)
-  
+  const onIconPress = () => setSecure(!secure);
+
   return (
     <KeyboardAwareScrollView
       extraHeight={100}
@@ -52,6 +58,7 @@ function LoginScreen(props) {
       bounces={false}>
       <View style={styles.userForm}>
         <Input
+          disabled={!!params?.username}
           label={strings('placeholder.username')}
           autoCapitalize={'none'}
           autoCorrect={false}
@@ -61,7 +68,7 @@ function LoginScreen(props) {
           containerStyle={styles.inputMargin}
         />
         <Input
-          iconName={secure?'ios-eye-outline': 'ios-eye-off-outline'}
+          iconName={secure ? 'ios-eye-outline' : 'ios-eye-off-outline'}
           label={strings('placeholder.password')}
           text={password}
           onChange={input => setPassword(input)}
@@ -76,7 +83,7 @@ function LoginScreen(props) {
       <View style={styles.buttonContainer}>
         <Button
           fetching={props.fetching}
-          text={strings('buttons.login')}
+          text={strings(params?.username ? 'buttons.unlock' : 'buttons.login')}
           onPress={handleLogin}
           containerStyle={styles.styledButton}
         />
@@ -85,4 +92,4 @@ function LoginScreen(props) {
   );
 }
 
-export default connect()(LoginScreen);
+export default LoginScreen;

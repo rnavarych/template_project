@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useEffect} from 'react';
 import analytics from '@react-native-firebase/analytics';
 import {
   NavigationContainer,
@@ -7,6 +7,7 @@ import {
   DefaultTheme,
 } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {useNavigation} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   Provider as PaperProvider,
@@ -15,7 +16,7 @@ import {
 } from 'react-native-paper';
 import * as routes from '../constants/routes';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {connect, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {strings} from '../l18n';
 
 import LoginScreen from '../containers/auth';
@@ -26,7 +27,6 @@ import ProfileScreen from '../containers/main/profile';
 import MapScreen from '../containers/main/map';
 import CameraScreen from '../containers/main/camera';
 import GalleryScreen from '../containers/main/gallery';
-
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -53,6 +53,25 @@ const tabBarIconHandler = (route, focused, color, size) => {
 };
 
 const HomeStackScreen = () => {
+  const username = useSelector(state => state.auth.username);
+  const {reset} = useNavigation();
+  const dateExpire = new Date().getTime() + 1000 * 10 * 60;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (new Date().getTime() >= dateExpire) {
+        reset({
+          index: 0,
+          routes: [{name: routes.LOGIN_SCREEN, params: {username}}],
+        });
+      }
+    }, 1000 * 60);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -78,7 +97,7 @@ const Navigation = () => {
   return (
     <PaperProvider theme={themeForPaper}>
       <NavigationContainer onStateChange={onStateChange} theme={theme}>
-        <Stack.Navigator >
+        <Stack.Navigator>
           <Stack.Screen
             name={routes.LOGIN_SCREEN}
             component={LoginScreen}
@@ -130,11 +149,13 @@ const onStateChange = async state => {
   const [previousRouteName, currentRouteName] = state.routes;
 
   if (previousRouteName !== currentRouteName) {
-    await analytics().logScreenView({
-      screen_name: currentRouteName.name,
-      screen_class: currentRouteName.name,
-    });
+    try {
+      await analytics().logScreenView({
+        screen_name: currentRouteName.name,
+        screen_class: currentRouteName.name,
+      });
+    } catch (error) {}
   }
 };
 
-export default connect()(Navigation);
+export default Navigation;

@@ -24,12 +24,19 @@ function App() {
 
   useEffect(() => {
     SplashScreen.hide();
-    setTimeout(()=>{
-      setSpinner(false)
-    },1000)
+    setTimeout(() => {
+      setSpinner(false);
+    }, 1000);
   }, []);
 
-  if (showSpinner) return <LottieView loop autoPlay source={require('./assets/progress-bar.json')}/>
+  if (showSpinner)
+    return (
+      <LottieView
+        loop
+        autoPlay
+        source={require('./assets/progress-bar.json')}
+      />
+    );
 
   return (
     <SafeAreaProvider>
