@@ -14,11 +14,15 @@ import {
   DarkTheme as PaperDarkTheme,
   DefaultTheme as PaperDefaultTheme,
 } from 'react-native-paper';
+
 import * as routes from '../constants/routes';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
+
+
 import {strings} from '../l18n';
 
+import CustomTabBar from '../containers/main/tab';
 import LoginScreen from '../containers/auth';
 import HomeScreen from '../containers/main/home';
 import SettingsScreen from '../containers/main/settings';
@@ -30,27 +34,6 @@ import GalleryScreen from '../containers/main/gallery';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-
-const tabBarIconHandler = (route, focused, color, size) => {
-  let iconName;
-
-  switch (route.name) {
-    case routes.HOME_SCREEN:
-      iconName = focused ? 'ios-home' : 'ios-home-outline';
-      break;
-    case routes.SETTINGS_SCREEN:
-      iconName = focused ? 'ios-settings' : 'ios-settings-outline';
-      break;
-    case routes.PROFILE_SCREEN:
-      iconName = focused ? 'ios-person' : 'ios-person-outline';
-      break;
-    case routes.MAP_SCREEN:
-      iconName = focused ? 'ios-map' : 'ios-map-outline';
-      break;
-  }
-
-  return <Ionicons name={iconName} size={size} color={color} />;
-};
 
 const HomeStackScreen = () => {
   const username = useSelector(state => state.auth.username);
@@ -86,15 +69,7 @@ const HomeStackScreen = () => {
   }, [lastScreen]);
 
   return (
-    <Tab.Navigator
-      screenOptions={({route}) => ({
-        tabBarIcon: ({focused, color, size}) =>
-          tabBarIconHandler(route, focused, color, size),
-      })}
-      tabBarOptions={{
-        activeTintColor: 'tomato',
-        inactiveTintColor: 'gray',
-      }}>
+    <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
       <Tab.Screen name={routes.HOME_SCREEN} component={HomeScreen} />
       <Tab.Screen name={routes.SETTINGS_SCREEN} component={SettingsScreen} />
       <Tab.Screen name={routes.PROFILE_SCREEN} component={ProfileScreen} />
