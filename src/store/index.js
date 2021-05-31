@@ -6,7 +6,6 @@ import {persistStore, persistReducer} from 'redux-persist';
 import authReducer from '../reducers/auth';
 import changeThemeReducer from '../reducers/changeTheme';
 import {settings} from '../reducers/settings';
-import setUsernameReducer from '../reducers/setUsername';
 
 export const configureStore = () => {
   const middlewares = [apiMiddleware];
@@ -26,7 +25,6 @@ export const configureStore = () => {
     auth: authReducer,
     changeTheme: changeThemeReducer,
     settings: settings,
-    setUsername: setUsernameReducer,
   });
 
   const persitedReducer = persistReducer(persistConfig, rootReducer);

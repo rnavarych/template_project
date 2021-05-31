@@ -26,8 +26,8 @@ const Map = () => {
   const [coordinates, setCoordinates] = useState({});
   const doc = 'E6i8fSGMPJsR1jN2KoYz';
 
-  const getRoute = async () => {
-    await firestore()
+  const getRoute = () => {
+    firestore()
       .collection('maps')
       .doc(doc)
       .get()
@@ -41,8 +41,8 @@ const Map = () => {
       });
   };
 
-  const sendUserLocationToFb = async position => {
-    await firestore()
+  const sendUserLocationToFb = position => {
+    firestore()
       .collection('maps')
       .doc(doc)
       .update({

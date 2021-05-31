@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useEffect} from 'react';
 import analytics from '@react-native-firebase/analytics';
 import {
   NavigationContainer,
@@ -7,6 +7,7 @@ import {
   DefaultTheme,
 } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {useNavigation, useNavigationState} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   Provider as PaperProvider,
@@ -15,7 +16,10 @@ import {
 } from 'react-native-paper';
 
 import * as routes from '../constants/routes';
-import {connect, useSelector} from 'react-redux';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useSelector} from 'react-redux';
+
+
 import {strings} from '../l18n';
 
 import CustomTabBar from '../containers/main/tab';
@@ -32,6 +36,38 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const HomeStackScreen = () => {
+  const username = useSelector(state => state.auth.username);
+  const {reset} = useNavigation();
+  const lastScreen = useNavigationState(state => {
+    const lastScreen = [];
+    const currentRouteTop = state.routeNames[state.index];
+    lastScreen[0] = currentRouteTop;
+    if (state.routes[state.index].state) {
+      const index = state.routes[state.index].state.index;
+      const currentRoutChild =
+        state.routes[state.index].state.routeNames[index];
+      lastScreen[1] = {screen: currentRoutChild};
+    }
+    return lastScreen;
+  });
+  const dateExpire = new Date().getTime() + 1000 * 10 * 60;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log(new Date().getTime() >= dateExpire, dateExpire);
+      if (new Date().getTime() >= dateExpire) {
+        reset({
+          index: 0,
+          routes: [{name: routes.LOGIN_SCREEN, params: {username, lastScreen}}],
+        });
+      }
+    }, 1000 * 60);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [lastScreen]);
+
   return (
     <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
       <Tab.Screen name={routes.HOME_SCREEN} component={HomeScreen} />
@@ -101,11 +137,13 @@ const onStateChange = async state => {
   const [previousRouteName, currentRouteName] = state.routes;
 
   if (previousRouteName !== currentRouteName) {
-    await analytics().logScreenView({
-      screen_name: currentRouteName.name,
-      screen_class: currentRouteName.name,
-    });
+    try {
+      await analytics().logScreenView({
+        screen_name: currentRouteName.name,
+        screen_class: currentRouteName.name,
+      });
+    } catch (error) {}
   }
 };
 
-export default connect()(Navigation);
+export default Navigation;
