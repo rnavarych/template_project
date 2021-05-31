@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react';
-import {View} from 'react-native';
+import {Text, View, ScrollView} from 'react-native';
+
+import ImageList from '../ImageList';
 import HomeButton from '../../../components/homeButton';
 import {connect} from 'react-redux';
 import * as routes from '../../../constants/routes';
@@ -29,7 +31,7 @@ function HomeScreen(props) {
           buttonText={strings('headers.gallery')}
         />
       </View>
-
+      <ImageList />
       <View style={styles.pickerStyle}>
         <PhotoPicker />
       </View>

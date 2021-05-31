@@ -86,7 +86,7 @@ const PhotoPicker = () => {
     <View style={styles.content}>
       <BottomSheet
         ref={sheetRef}
-        snapPoints={[330, 0]}
+        snapPoints={[310, 0]}
         renderContent={renderInner}
         renderHeader={renderHeader}
         initialSnap={1}
