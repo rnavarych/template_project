@@ -1,8 +1,13 @@
 {
   "alert":{
     "titleErr":"Error",
+    "titleSuccess":"Success",
+    "titlePictureDialog":"Title",
+    "msgPicture": "what to do with image?",
+    "file_saved":"File was saved to",
     "positiveBtn": "Ok",
-    "select_img": "You did not select any image"
+    "select_img": "You did not select any image",
+    "msg_share":"msg share"
   },
   "permission":{
     "denied": "Permissions denied"
@@ -20,6 +25,7 @@
     "edit": "Edit",
     "cancel": "Cancel",
     "save": "Save",
+    "share_photo": "Share photo",
     "upload_photo": "Upload Photo",
     "choose_pic": "Choose A Picture",
     "take_photo": "Take Photo",
