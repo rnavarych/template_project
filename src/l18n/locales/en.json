@@ -17,7 +17,8 @@
     "password": "Password"
   },
   "headers": {
-    "gallery": "Gallery"
+    "gallery": "Gallery",
+    "photos": "Photos"
   },
   "buttons": {
     "login": "Sign in",
