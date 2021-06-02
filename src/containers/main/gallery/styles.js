@@ -21,4 +21,15 @@ export default StyleSheet.create({
   listHeader: {
     height: 24,
   },
+  icon: {
+    position: 'absolute',
+    zIndex: 1,
+    left: 13,
+  },
+  touchableStyle: {
+    width: 50,
+    height: 50,
+    position: 'absolute',
+    top: 0,
+  },
 });
