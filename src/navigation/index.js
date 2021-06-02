@@ -9,6 +9,7 @@ import {
 import {createStackNavigator} from '@react-navigation/stack';
 import {useNavigation, useNavigationState} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {
   Provider as PaperProvider,
   DarkTheme as PaperDarkTheme,
@@ -16,9 +17,7 @@ import {
 } from 'react-native-paper';
 
 import * as routes from '../constants/routes';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
-
 
 import {strings} from '../l18n';
 
@@ -34,6 +33,31 @@ import GalleryScreen from '../containers/main/gallery';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const TopTab = createMaterialTopTabNavigator();
+
+const GalleryComponent = props => {
+  const {name} = props.route;
+  if (name === routes.GALLERY_SCREEN) {
+    return <GalleryScreen tabName={routes.GALLERY_SCREEN} />;
+  } else {
+    return <GalleryScreen tabName={routes.FAVOURITES_SCREEN} />;
+  }
+};
+
+const GalleryStackScreen = () => {
+  return (
+    <TopTab.Navigator>
+      <TopTab.Screen
+        name={routes.GALLERY_SCREEN}
+        component={GalleryComponent}
+      />
+      <TopTab.Screen
+        name={routes.FAVOURITES_SCREEN}
+        component={GalleryComponent}
+      />
+    </TopTab.Navigator>
+  );
+};
 
 const HomeStackScreen = () => {
   const username = useSelector(state => state.auth.username);
@@ -54,6 +78,7 @@ const HomeStackScreen = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      console.log(new Date().getTime() >= dateExpire, dateExpire);
       if (new Date().getTime() >= dateExpire) {
         reset({
           index: 0,
@@ -119,9 +144,9 @@ const Navigation = () => {
           />
           <Stack.Screen
             name={routes.GALLERY_SCREEN}
-            component={GalleryScreen}
+            component={GalleryStackScreen}
             options={{
-              headerTitle: strings('headers.gallery'),
+              headerTitle: strings('headers.photos'),
               headerBackTitle: false,
               animationTypeForReplace: 'pop',
             }}
