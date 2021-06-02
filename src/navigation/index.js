@@ -78,7 +78,6 @@ const HomeStackScreen = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log(new Date().getTime() >= dateExpire, dateExpire);
       if (new Date().getTime() >= dateExpire) {
         reset({
           index: 0,
