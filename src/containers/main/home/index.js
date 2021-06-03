@@ -31,7 +31,6 @@ function HomeScreen(props) {
           buttonText={strings('headers.gallery')}
         />
       </View>
-      <ImageList />
       <View style={styles.pickerStyle}>
         <PhotoPicker />
       </View>
