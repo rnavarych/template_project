@@ -5,6 +5,7 @@ import logger from 'redux-logger';
 import {persistStore, persistReducer} from 'redux-persist';
 import authReducer from '../reducers/auth';
 import changeThemeReducer from '../reducers/changeTheme';
+import favouritesReducer from '../reducers/favourites';
 import {settings} from '../reducers/settings';
 
 export const configureStore = () => {
@@ -25,6 +26,7 @@ export const configureStore = () => {
     auth: authReducer,
     changeTheme: changeThemeReducer,
     settings: settings,
+    favourites: favouritesReducer,
   });
 
   const persitedReducer = persistReducer(persistConfig, rootReducer);
