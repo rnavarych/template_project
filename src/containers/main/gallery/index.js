@@ -18,6 +18,7 @@ import ImageBox from '../../main/imageBox';
 import {addToFavourites, deleteFavourites} from '../../../actions/favourites';
 
 import styles from './styles';
+import {strings} from '../../../l18n';
 import {underlayColor} from '../../../constants/colors';
 import * as routes from '../../../constants/routes';
 
@@ -44,7 +45,9 @@ const GalleryScreen = ({
   }, [selectedPhoto]);
 
   const showErr = e => {
-    Alert.alert('title', e.message, [{text: 'ok', onPress: () => {}}]);
+    Alert.alert(strings('alert.titleErr'), e.message, [
+      {text: strings('alert.positiveBtn'), onPress: () => {}},
+    ]);
   };
 
   const getPhotoFromDevice = () => {
@@ -136,7 +139,7 @@ const GalleryScreen = ({
   return (
     <View style={styles.flatContainer}>
       <Modal
-        backdropOpacity={.95}
+        backdropOpacity={0.95}
         isVisible={showModal}
         onModalHide={() => setPhoto('')}
         onBackdropPress={() => setModal(false)}>
