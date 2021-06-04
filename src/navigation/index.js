@@ -30,6 +30,7 @@ import ProfileScreen from '../containers/main/profile';
 import MapScreen from '../containers/main/map';
 import CameraScreen from '../containers/main/camera';
 import GalleryScreen from '../containers/main/gallery';
+import ImageList from '../containers/main/ImageList';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -94,6 +95,7 @@ const HomeStackScreen = () => {
   return (
     <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
       <Tab.Screen name={routes.HOME_SCREEN} component={HomeScreen} />
+      <Tab.Screen name={routes.IMAGES_SCREEN} component={ImageList} />
       <Tab.Screen name={routes.SETTINGS_SCREEN} component={SettingsScreen} />
       <Tab.Screen name={routes.PROFILE_SCREEN} component={ProfileScreen} />
       <Tab.Screen name={routes.MAP_SCREEN} component={MapScreen} />

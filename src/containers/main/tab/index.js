@@ -36,8 +36,8 @@ function CustomTabBar({state, descriptors, navigation}) {
       navigation.navigate(route.name);
       Animated.spring(leftValue, {
         toValue: diff + tabWidth * index,
-        tension: 0,
-        friction: 3,
+        tension: -5,
+        friction: 2.5,
         useNativeDriver: false,
       }).start();
     }
