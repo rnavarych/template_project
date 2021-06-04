@@ -1,13 +1,17 @@
-import {StyleSheet} from 'react-native'
+import {StyleSheet} from 'react-native';
+import {BLOCK_HEIGHT, SPACCING} from '../../constants/animation';
 
 export default StyleSheet.create({
-    container:{
-        flex:  1,
-        marginBottom: 10,
-        alignItems: 'center',
-    },
-    image:{
-        height: 150,
-        width: 150,
-    }
-})
+  container: {
+    marginBottom: SPACCING,
+    alignItems: 'center',
+    borderWidth: 1,
+    height: BLOCK_HEIGHT,
+    backgroundColor: 'white',
+    borderRadius: 10,
+  },
+  image: {
+    height: '100%',
+    width: BLOCK_HEIGHT,
+  },
+});

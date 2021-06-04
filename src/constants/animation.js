@@ -1,9 +1,9 @@
 import * as shape from 'd3-shape';
-import { Dimensions } from 'react-native'
+import {Dimensions} from 'react-native';
 
 export const {width} = Dimensions.get('window');
-export const radius = width * 0.08912037037037036
-export const tabWidth = width / 4;
+export const radius = width * 0.08912037037037036;
+export const tabWidth = width / 5;
 export const widthSvg = width * 0.3056;
 export const heightSvg = width * 0.1528;
 export const viewBoxWidth = width * 0.4583;
@@ -13,8 +13,7 @@ export const diff = tabWidth / 2 - widthSvg / 2;
 const sh = shape
   .line()
   .x(d => d[0])
-  .y(d => d[1])
-  ([
+  .y(d => d[1])([
   [0.5083041135081515, 0.5000008447564119],
   [2.4964497411131554, 0.54979611151141],
   [4.496909349782858, 0.703637523079291],
@@ -143,3 +142,8 @@ const sh = shape
 ]);
 
 export const curveLineSvgHome = `${sh}`;
+
+/* IMAGE SCREEN */
+
+export const BLOCK_HEIGHT = width * 0.38;
+export const SPACCING = width * 0.025;

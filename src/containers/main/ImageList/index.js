@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {View, FlatList, Alert, Text} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {View, Alert, Animated, SafeAreaView} from 'react-native';
 import storage from '@react-native-firebase/storage';
 import {utils} from '@react-native-firebase/app';
 import Share from 'react-native-share';
@@ -8,11 +8,16 @@ import {strings} from '../../../l18n';
 import Progress from '../../../components/Progress';
 import ImageItem from '../../../components/ImageItem';
 
+import {BLOCK_HEIGHT, SPACCING} from '../../../constants/animation';
 import styles from './styles';
+
+const BLOCK_SIZE = BLOCK_HEIGHT + SPACCING;
+const SCALE_VALUE = 0.8;
 
 const ImageList = () => {
   const [urls, setUrls] = useState([]);
   const [spinner, setSpinner] = useState(true);
+  const scrollY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     getImgUrl();
@@ -75,17 +80,61 @@ const ImageList = () => {
     );
   };
 
+  const getInputRange = index => [
+    -1,
+    0,
+    BLOCK_SIZE * index,
+    BLOCK_SIZE * (index + 0.5),
+    BLOCK_SIZE * (index + 1),
+  ];
+
+  const getScale = index => {
+    return scrollY.interpolate({
+      inputRange: getInputRange(index),
+      outputRange: [1, 1, 1, SCALE_VALUE, SCALE_VALUE],
+    });
+  };
+
+  const getTranslate = index => {
+    const diff = BLOCK_SIZE - BLOCK_SIZE * SCALE_VALUE;
+
+    return scrollY.interpolate({
+      inputRange: getInputRange(index),
+      outputRange: [0, 0, 0, (BLOCK_SIZE + diff/2) / 2, BLOCK_SIZE + diff],
+    });
+  };
+
   if (spinner) return <Progress />;
 
   return (
-    <View style={styles.container}>
-      <FlatList
+    <SafeAreaView style={styles.container}>
+      <Animated.FlatList
         data={urls}
-        renderItem={props => <ImageItem onClick={handleClick} {...props} />}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          {
+            useNativeDriver: true,
+          },
+        )}
+        renderItem={({item, index}) => {
+          const animStyle = {
+            transform: [
+              {scale: getScale(index)},
+              {translateY: getTranslate(index)},
+            ],
+            zIndex: index,
+          };
+
+          return (
+            <Animated.View style={animStyle}>
+              <ImageItem onClick={handleClick} item={item} />
+            </Animated.View>
+          );
+        }}
         style={styles.container}
         keyExtractor={(item, index) => index.toString()}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

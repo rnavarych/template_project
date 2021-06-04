@@ -6,28 +6,25 @@ import {focusedBtn, unFocusedBtn} from '../../constants/colors';
 import styles from './styles';
 import * as routes from '../../constants/routes';
 
+const icons = {
+  [routes.HOME_SCREEN]: 'ios-home-outline',
+  [routes.IMAGES_SCREEN]: 'ios-image-outline',
+  [routes.SETTINGS_SCREEN]: 'ios-settings-outline',
+  [routes.PROFILE_SCREEN]: 'ios-person-outline',
+  [routes.MAP_SCREEN]: 'ios-map-outline',
+};
+
 const TabItem = ({index, onPress, descriptors, route, isFocused}) => {
   const {options} = descriptors[route.key];
 
+  const getIconName = icon => icon.substring(0, icon.length - '-outline'.length);
+
   const tabBarIconHandler = (route, color, size) => {
-    let iconName;
+    let iconName = isFocused
+      ? getIconName(icons[route.name])
+      : icons[route.name];
     const newSize = isFocused ? size + 4 : size;
     const focusStyles = isFocused ? styles.focusStyles : null;
-
-    switch (route.name) {
-      case routes.HOME_SCREEN:
-        iconName = isFocused ? 'ios-home' : 'ios-home-outline';
-        break;
-      case routes.SETTINGS_SCREEN:
-        iconName = isFocused ? 'ios-settings' : 'ios-settings-outline';
-        break;
-      case routes.PROFILE_SCREEN:
-        iconName = isFocused ? 'ios-person' : 'ios-person-outline';
-        break;
-      case routes.MAP_SCREEN:
-        iconName = isFocused ? 'ios-map' : 'ios-map-outline';
-        break;
-    }
 
     return (
       <Ionicons
