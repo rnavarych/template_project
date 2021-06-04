@@ -25,6 +25,7 @@ export default StyleSheet.create({
     position: 'absolute',
     zIndex: 1,
     left: 13,
+    color: 'red'
   },
   touchableStyle: {
     width: 50,

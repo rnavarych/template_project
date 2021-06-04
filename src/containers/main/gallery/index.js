@@ -5,11 +5,16 @@ import {
   Dimensions,
   Image,
   TouchableHighlight,
+  Alert,
+  Linking,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CameraRoll from '@react-native-community/cameraroll';
-
 import {connect} from 'react-redux';
+import Modal from 'react-native-modal';
+
+import ImageBox from '../../main/imageBox';
 import {addToFavourites, deleteFavourites} from '../../../actions/favourites';
 
 import styles from './styles';
@@ -23,19 +28,32 @@ const GalleryScreen = ({
   favouritesList,
 }) => {
   const [photos, setPhotos] = useState([]);
-  const [selectedPhotos, setSelectedPhotos] = useState([]);
   const [width, setWidth] = useState([]);
+  const [selectedPhoto, setPhoto] = useState('');
+  const [showModal, setModal] = useState(false);
 
   useEffect(() => {
     getPhotoFromDevice();
     setWidth(Dimensions.get('window').width);
   }, []);
 
+  useEffect(() => {
+    if (selectedPhoto) {
+      setModal(true);
+    }
+  }, [selectedPhoto]);
+
+  const showErr = e => {
+    Alert.alert('title', e.message, [{text: 'ok', onPress: () => {}}]);
+  };
+
   const getPhotoFromDevice = () => {
     CameraRoll.getPhotos({
       first: 20,
       assetType: 'All',
-    }).then(response => setPhotos(response.edges));
+    })
+      .then(response => setPhotos(response.edges))
+      .catch(showErr);
   };
 
   const renderItem = ({item}) => {
@@ -46,18 +64,20 @@ const GalleryScreen = ({
         : item.url || item.uri;
     return (
       <View>
-        <Image
-          source={{uri}}
-          imageStyle={styles.imageStyle}
-          style={[
-            styles.image,
-            {
-              width: calculatedWidth - 30,
-              height: calculatedWidth - 80,
-              borderRadius: 12,
-            },
-          ]}
-        />
+        <TouchableWithoutFeedback onPress={() => setPhoto(uri)}>
+          <Image
+            source={{uri}}
+            imageStyle={styles.imageStyle}
+            style={[
+              styles.image,
+              {
+                width: calculatedWidth - 30,
+                height: calculatedWidth - 80,
+                borderRadius: 12,
+              },
+            ]}
+          />
+        </TouchableWithoutFeedback>
         {tabName === routes.GALLERY_SCREEN
           ? renderIcon(item, uri)
           : renderFavouriteIcon(uri)}
@@ -69,7 +89,7 @@ const GalleryScreen = ({
     const selectedElements = item.id
       ? {uri: item.url, id: item.id}
       : {uri: item.node.image.uri, id: Date.now()};
-    const icons = selectedPhotos.map(item => item.uri);
+    const icons = favouritesList.map(item => item.uri);
 
     const uri = item.url || item.node.image.uri;
 
@@ -93,14 +113,13 @@ const GalleryScreen = ({
   };
 
   const selectImage = async url => {
-    const icons = selectedPhotos.map(item => item.uri);
+    const icons = favouritesList.map(item => item.uri);
     const element = icons.find(item => item === url.uri);
     if (!element) {
-      setSelectedPhotos([...selectedPhotos, url]);
+      addToFavourites([...favouritesList, url]);
     } else {
-      setSelectedPhotos([selectedPhotos.filter(item => item.uri !== url.uri)]);
+      deleteFavourites(url.uri);
     }
-    addToFavourites([...selectedPhotos, url]);
   };
 
   const renderFavouriteIcon = uri => {
@@ -116,12 +135,20 @@ const GalleryScreen = ({
 
   return (
     <View style={styles.flatContainer}>
+      <Modal
+        backdropOpacity={.95}
+        isVisible={showModal}
+        onModalHide={() => setPhoto('')}
+        onBackdropPress={() => setModal(false)}>
+        <ImageBox uri={selectedPhoto} setModal={setModal} />
+      </Modal>
+
       <View style={styles.wrapperList}>
         <FlatList
           data={tabName === routes.GALLERY_SCREEN ? photos : favouritesList}
           numColumns={2}
           renderItem={renderItem}
-          keyExtractor={index => index.toString()}
+          keyExtractor={(item, index) => index.toString()}
           ListHeaderComponent={() => <View style={styles.listHeader} />}
         />
       </View>
