@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   Alert,
   TouchableWithoutFeedback,
+  Platform,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CameraRoll from '@react-native-community/cameraroll';
@@ -18,6 +19,7 @@ import VideoBox from '../../../components/VideoBox';
 import {addToFavourites, deleteFavourites} from '../../../actions/favourites';
 
 import styles from './styles';
+import {requestReadStoragePermission} from '../../../services/permissions';
 import {strings} from '../../../l18n';
 import {underlayColor} from '../../../constants/colors';
 import {iconSize} from '../../../constants/sizes';
@@ -52,7 +54,10 @@ const GalleryScreen = ({
     ]);
   };
 
-  const getPhotoFromDevice = () => {
+  const getPhotoFromDevice = async () => {
+    if (Platform.OS === 'android' && !(await requestReadStoragePermission()))
+      return;
+
     CameraRoll.getPhotos({
       first: 20,
       assetType: 'All',
