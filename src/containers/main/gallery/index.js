@@ -6,7 +6,6 @@ import {
   Image,
   TouchableHighlight,
   Alert,
-  Linking,
   TouchableWithoutFeedback,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -14,12 +13,14 @@ import CameraRoll from '@react-native-community/cameraroll';
 import {connect} from 'react-redux';
 import Modal from 'react-native-modal';
 
-import ImageBox from '../../main/imageBox';
+import ImageBox from '../../../components/imageBox';
+import VideoBox from '../../../components/VideoBox';
 import {addToFavourites, deleteFavourites} from '../../../actions/favourites';
 
 import styles from './styles';
 import {strings} from '../../../l18n';
 import {underlayColor} from '../../../constants/colors';
+import {iconSize} from '../../../constants/sizes';
 import * as routes from '../../../constants/routes';
 
 const GalleryScreen = ({
@@ -30,8 +31,9 @@ const GalleryScreen = ({
 }) => {
   const [photos, setPhotos] = useState([]);
   const [width, setWidth] = useState([]);
-  const [selectedPhoto, setPhoto] = useState('');
+  const [selectedPhoto, setPhoto] = useState({uri: '', isVideo: null});
   const [showModal, setModal] = useState(false);
+  const [isVisible, setVisible] = useState(false);
 
   useEffect(() => {
     getPhotoFromDevice();
@@ -39,7 +41,7 @@ const GalleryScreen = ({
   }, []);
 
   useEffect(() => {
-    if (selectedPhoto) {
+    if (selectedPhoto.uri) {
       setModal(true);
     }
   }, [selectedPhoto]);
@@ -65,9 +67,14 @@ const GalleryScreen = ({
       tabName === routes.GALLERY_SCREEN
         ? item.url || item.node.image.uri
         : item.url || item.uri;
+
+    const isVideo = item.node ? /video/.test(item.node.type) : item.isVideo;
     return (
       <View>
-        <TouchableWithoutFeedback onPress={() => setPhoto(uri)}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            setPhoto({uri, isVideo});
+          }}>
           <Image
             source={{uri}}
             imageStyle={styles.imageStyle}
@@ -82,13 +89,23 @@ const GalleryScreen = ({
           />
         </TouchableWithoutFeedback>
         {tabName === routes.GALLERY_SCREEN
-          ? renderIcon(item, uri)
+          ? renderIcon(item, isVideo)
           : renderFavouriteIcon(uri)}
+        {isVideo ? renderVideoIcon() : null}
       </View>
     );
   };
 
-  const renderIcon = item => {
+  const renderVideoIcon = () => (
+    <Ionicons
+      name="play-outline"
+      size={iconSize}
+      color="red"
+      style={[styles.icon, styles.video]}
+    />
+  );
+
+  const renderIcon = (item, isVideo) => {
     const selectedElements = item.id
       ? {uri: item.url, id: item.id}
       : {uri: item.node.image.uri, id: Date.now()};
@@ -98,16 +115,21 @@ const GalleryScreen = ({
 
     return (
       <TouchableHighlight
-        onPress={() => selectImage(selectedElements)}
+        onPress={() => selectImage(selectedElements, isVideo)}
         underlayColor={underlayColor}
         style={styles.touchableStyle}>
         {icons.includes(uri) ? (
-          <Ionicons name="heart" size={25} color="red" style={styles.icon} />
+          <Ionicons
+            name="heart"
+            size={iconSize}
+            color="red"
+            style={styles.icon}
+          />
         ) : (
           <Ionicons
             name="heart-outline"
-            size={25}
-            color="black"
+            size={iconSize}
+            color="red"
             style={styles.icon}
           />
         )}
@@ -115,11 +137,11 @@ const GalleryScreen = ({
     );
   };
 
-  const selectImage = async url => {
+  const selectImage = async (url, isVideo) => {
     const icons = favouritesList.map(item => item.uri);
     const element = icons.find(item => item === url.uri);
     if (!element) {
-      addToFavourites([...favouritesList, url]);
+      addToFavourites([...favouritesList, {...url, isVideo}]);
     } else {
       deleteFavourites(url.uri);
     }
@@ -131,8 +153,26 @@ const GalleryScreen = ({
         onPress={() => deleteFavourites(uri)}
         underlayColor={underlayColor}
         style={styles.touchableStyle}>
-        <Ionicons name="heart" size={25} color="red" style={styles.icon} />
+        <Ionicons
+          name="heart"
+          size={iconSize}
+          color="red"
+          style={styles.icon}
+        />
       </TouchableHighlight>
+    );
+  };
+
+  const renderModalContent = isVideo => {
+    return isVideo ? (
+      <VideoBox
+        uri={selectedPhoto.uri}
+        isVisible={isVisible}
+        setVisible={setVisible}
+        setModal={setModal}
+      />
+    ) : (
+      <ImageBox uri={selectedPhoto.uri} setModal={setModal} />
     );
   };
 
@@ -141,9 +181,13 @@ const GalleryScreen = ({
       <Modal
         backdropOpacity={0.95}
         isVisible={showModal}
-        onModalHide={() => setPhoto('')}
+        onModalShow={() => setVisible(true)}
+        onModalHide={() => {
+          setPhoto({uri: null, isVideo: null});
+          setVisible(false);
+        }}
         onBackdropPress={() => setModal(false)}>
-        <ImageBox uri={selectedPhoto} setModal={setModal} />
+        {renderModalContent(selectedPhoto.isVideo)}
       </Modal>
 
       <View style={styles.wrapperList}>
