@@ -24,7 +24,10 @@ export default StyleSheet.create({
   icon: {
     position: 'absolute',
     zIndex: 1,
-    left: 13,
+    left: 13
+  },
+  video:{
+    top: 25
   },
   touchableStyle: {
     width: 50,
