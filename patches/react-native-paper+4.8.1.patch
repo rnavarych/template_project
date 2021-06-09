@@ -1,0 +1,28 @@
+diff --git a/node_modules/react-native-paper/src/components/FAB/FABGroup.tsx b/node_modules/react-native-paper/src/components/FAB/FABGroup.tsx
+index 33a7461..49d8dfb 100644
+--- a/node_modules/react-native-paper/src/components/FAB/FABGroup.tsx
++++ b/node_modules/react-native-paper/src/components/FAB/FABGroup.tsx
+@@ -42,6 +42,7 @@ type Props = {
+    * You can toggle it based on whether the speed dial is open to display a different icon.
+    */
+   icon: IconSource;
++  animated?: boolean;
+   /**
+    * Accessibility label for the FAB. This is read by the screen reader when the user taps the FAB.
+    */
+@@ -159,6 +160,7 @@ const FABGroup = ({
+   testID,
+   onStateChange,
+   color: colorProp,
++  animated = true
+ }: Props) => {
+   const { current: backdrop } = React.useRef<Animated.Value>(
+     new Animated.Value(0)
+@@ -351,6 +353,7 @@ const FABGroup = ({
+             toggle();
+           }}
+           icon={icon}
++          animated={animated}
+           color={colorProp}
+           accessibilityLabel={accessibilityLabel}
+           // @ts-expect-error We keep old a11y props for backwards compat with old RN versions

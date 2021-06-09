@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "refresh": "rm -rf node_modules && yarn install && cd ios && rm -rf Pods && pod install && cd ..",
     "android-prepare": "rm -rf node_modules && yarn install",
-    "code-push": "cd node_modules/react-native-code-push && npm i code-push@4.0.2 && cd ../.."
+    "code-push": "cd node_modules/react-native-code-push && npm i code-push@4.0.2 && cd ../..",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.14.1",
@@ -30,6 +31,8 @@
     "d3-shape": "^2.1.0",
     "lodash.memoize": "^4.1.2",
     "lottie-react-native": "^3.5.0",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
     "react": "17.0.1",
     "react-native": "0.64.0",
     "react-native-camera": "^3.43.6",
