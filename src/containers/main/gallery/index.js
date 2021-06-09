@@ -1,29 +1,41 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef, useCallback, useMemo} from 'react';
 import {
   View,
   FlatList,
   Dimensions,
   Image,
   TouchableHighlight,
-  Alert,
   TouchableWithoutFeedback,
   Platform,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import CameraRoll from '@react-native-community/cameraroll';
 import {connect} from 'react-redux';
 import Modal from 'react-native-modal';
+import {Provider, FAB} from 'react-native-paper';
+import {useHeaderHeight} from '@react-navigation/stack';
+import VideoPlayer from 'react-native-video';
 
 import ImageBox from '../../../components/imageBox';
 import VideoBox from '../../../components/VideoBox';
+
 import {addToFavourites, deleteFavourites} from '../../../actions/favourites';
+import Filter from '../../../components/filter';
 
 import styles from './styles';
-import {requestReadStoragePermission} from '../../../services/permissions';
-import {strings} from '../../../l18n';
+
 import {underlayColor} from '../../../constants/colors';
 import {iconSize} from '../../../constants/sizes';
 import * as routes from '../../../constants/routes';
+import {getPhotoFromDevice} from '../../../utils/utils';
+
+const getAssetType = filterOptions => {
+  const {photo, video} = filterOptions;
+  if (!photo && !video) return 'All';
+  if (photo && video) return null;
+  return photo ? 'Photos' : 'Videos';
+};
+
+const {height: screenHeigth} = Dimensions.get('window');
 
 const GalleryScreen = ({
   addToFavourites,
@@ -36,175 +48,248 @@ const GalleryScreen = ({
   const [selectedPhoto, setPhoto] = useState({uri: '', isVideo: null});
   const [showModal, setModal] = useState(false);
   const [isVisible, setVisible] = useState(false);
+  const headerHeight = useHeaderHeight();
+  const [filterOptions, setFilterOptions] = useState({
+    photo: false,
+    video: false,
+  });
+  const [userCenter, setCenter] = useState(0);
 
   useEffect(() => {
-    getPhotoFromDevice();
     setWidth(Dimensions.get('window').width);
   }, []);
 
+  useEffect(() => getMedia(), [filterOptions]);
+
   useEffect(() => {
-    if (selectedPhoto.uri) {
-      setModal(true);
-    }
+    if (selectedPhoto.uri) setModal(true);
   }, [selectedPhoto]);
 
-  const showErr = e => {
-    Alert.alert(strings('alert.titleErr'), e.message, [
-      {text: strings('alert.positiveBtn'), onPress: () => {}},
-    ]);
-  };
+  const getMedia = useCallback(async () => {
+    setPhotos(await getPhotoFromDevice(getAssetType(filterOptions)));
+  }, [setPhotos, filterOptions]);
 
-  const getPhotoFromDevice = async () => {
-    if (Platform.OS === 'android' && !(await requestReadStoragePermission()))
-      return;
-
-    CameraRoll.getPhotos({
-      first: 20,
-      assetType: 'All',
-    })
-      .then(response => setPhotos(response.edges))
-      .catch(showErr);
-  };
-
-  const renderItem = ({item}) => {
-    const calculatedWidth = width / 2;
-    const uri =
-      tabName === routes.GALLERY_SCREEN
-        ? item.url || item.node.image.uri
-        : item.url || item.uri;
-
-    const isVideo = item.node ? /video/.test(item.node.type) : item.isVideo;
-    return (
-      <View>
-        <TouchableWithoutFeedback
-          onPress={() => {
-            setPhoto({uri, isVideo});
-          }}>
-          <Image
-            source={{uri}}
-            imageStyle={styles.imageStyle}
-            style={[
-              styles.image,
-              {
-                width: calculatedWidth - 30,
-                height: calculatedWidth - 80,
-                borderRadius: 12,
-              },
-            ]}
-          />
-        </TouchableWithoutFeedback>
-        {tabName === routes.GALLERY_SCREEN
-          ? renderIcon(item, isVideo)
-          : renderFavouriteIcon(uri)}
-        {isVideo ? renderVideoIcon() : null}
-      </View>
-    );
-  };
-
-  const renderVideoIcon = () => (
-    <Ionicons
-      name="play-outline"
-      size={iconSize}
-      color="red"
-      style={[styles.icon, styles.video]}
-    />
+  const renderImageBlock = useCallback(
+    ({item, height, calculatedWidth, uri, isVideo}) => {
+      return (
+        <View>
+          <TouchableWithoutFeedback
+            onPress={() => {
+              setPhoto({uri, isVideo});
+            }}>
+            <Image
+              source={{uri}}
+              imageStyle={styles.imageStyle}
+              style={[
+                styles.image,
+                {
+                  width: calculatedWidth - 30,
+                  height,
+                  borderRadius: 12,
+                },
+              ]}
+            />
+          </TouchableWithoutFeedback>
+          {tabName === routes.GALLERY_SCREEN
+            ? renderIcon(item, isVideo)
+            : renderFavouriteIcon(uri)}
+          {isVideo ? renderVideoIcon() : null}
+        </View>
+      );
+    },
+    [tabName, setPhoto, favouritesList],
   );
 
-  const renderIcon = (item, isVideo) => {
-    const selectedElements = item.id
-      ? {uri: item.url, id: item.id}
-      : {uri: item.node.image.uri, id: Date.now()};
-    const icons = favouritesList.map(item => item.uri);
+  const renderVideoBlock = useCallback(
+    ({height, calculatedWidth, uri}) => {
+      let newUri = uri;
+      if (Platform.OS === 'ios') {
+        newUri = `assets-library://asset/asset.MOV?id=${
+          uri.replace('ph://', '').split('/')[0]
+        }&ext=MOV`;
+      }
+      return (
+        <VideoPlayer
+          source={{uri: newUri}}
+          resizeMode={'cover'}
+          style={[
+            styles.videoPlayer,
+            {
+              width: calculatedWidth - 30,
+              height,
+              borderRadius: 12,
+            },
+          ]}
+        />
+      );
+    },
+    [Platform],
+  );
 
-    const uri = item.url || item.node.image.uri;
+  const renderItem = useCallback(
+    ({item, index}) => {
+      const calculatedWidth = width / 2;
+      const height = calculatedWidth - 80;
+      const heigthWithSpaccing = height + 24 * 2;
+      const isVideo = item.node ? /video/.test(item.node.type) : item.isVideo;
+      const uri =
+        tabName === routes.GALLERY_SCREEN
+          ? item.url || item.node.image.uri
+          : item.url || item.uri;
 
-    return (
-      <TouchableHighlight
-        onPress={() => selectImage(selectedElements, isVideo)}
-        underlayColor={underlayColor}
-        style={styles.touchableStyle}>
-        {icons.includes(uri) ? (
+      const isBlockInCenter = () => {
+        const newIndex = index % 2 === 0 ? index : index - 1;
+        const blockEndPosition = heigthWithSpaccing * (newIndex / 2 + 1);
+        return (
+          userCenter < blockEndPosition &&
+          userCenter > blockEndPosition - heigthWithSpaccing
+        );
+      };
+      const props = {
+        item,
+        index,
+        height,
+        calculatedWidth,
+        uri,
+        isVideo,
+      };
+      if (isVideo && isBlockInCenter()) return renderVideoBlock(props);
+      return renderImageBlock(props);
+    },
+    [renderImageBlock, renderVideoBlock, width, tabName, userCenter],
+  );
+
+  const renderVideoIcon = useCallback(
+    () => (
+      <Ionicons
+        name="play-outline"
+        size={iconSize}
+        color="red"
+        style={[styles.icon, styles.video]}
+      />
+    ),
+    [],
+  );
+
+  const renderIcon = useCallback(
+    (item, isVideo) => {
+      const selectedElements = item.id
+        ? {uri: item.url, id: item.id}
+        : {uri: item.node.image.uri, id: Date.now()};
+      const icons = favouritesList.map(item => item.uri);
+
+      const uri = item.url || item.node.image.uri;
+
+      return (
+        <TouchableHighlight
+          onPress={() => selectImage(selectedElements, isVideo)}
+          underlayColor={underlayColor}
+          style={styles.touchableStyle}>
+          {icons.includes(uri) ? (
+            <Ionicons
+              name="heart"
+              size={iconSize}
+              color="red"
+              style={styles.icon}
+            />
+          ) : (
+            <Ionicons
+              name="heart-outline"
+              size={iconSize}
+              color="red"
+              style={styles.icon}
+            />
+          )}
+        </TouchableHighlight>
+      );
+    },
+    [favouritesList, selectImage],
+  );
+
+  const selectImage = useCallback(
+    async (url, isVideo) => {
+      const icons = favouritesList.map(item => item.uri);
+      const element = icons.find(item => item === url.uri);
+      if (!element) {
+        addToFavourites([...favouritesList, {...url, isVideo}]);
+      } else {
+        deleteFavourites(url.uri);
+      }
+    },
+    [addToFavourites, deleteFavourites, favouritesList],
+  );
+
+  const renderFavouriteIcon = useCallback(
+    uri => {
+      return (
+        <TouchableHighlight
+          onPress={() => deleteFavourites(uri)}
+          underlayColor={underlayColor}
+          style={styles.touchableStyle}>
           <Ionicons
             name="heart"
             size={iconSize}
             color="red"
             style={styles.icon}
           />
-        ) : (
-          <Ionicons
-            name="heart-outline"
-            size={iconSize}
-            color="red"
-            style={styles.icon}
-          />
-        )}
-      </TouchableHighlight>
-    );
-  };
+        </TouchableHighlight>
+      );
+    },
+    [deleteFavourites],
+  );
 
-  const selectImage = async (url, isVideo) => {
-    const icons = favouritesList.map(item => item.uri);
-    const element = icons.find(item => item === url.uri);
-    if (!element) {
-      addToFavourites([...favouritesList, {...url, isVideo}]);
-    } else {
-      deleteFavourites(url.uri);
-    }
-  };
-
-  const renderFavouriteIcon = uri => {
-    return (
-      <TouchableHighlight
-        onPress={() => deleteFavourites(uri)}
-        underlayColor={underlayColor}
-        style={styles.touchableStyle}>
-        <Ionicons
-          name="heart"
-          size={iconSize}
-          color="red"
-          style={styles.icon}
+  const renderModalContent = useCallback(
+    isVideo => {
+      return isVideo ? (
+        <VideoBox
+          uri={selectedPhoto.uri}
+          isVisible={isVisible}
+          setVisible={setVisible}
+          setModal={setModal}
         />
-      </TouchableHighlight>
-    );
-  };
-
-  const renderModalContent = isVideo => {
-    return isVideo ? (
-      <VideoBox
-        uri={selectedPhoto.uri}
-        isVisible={isVisible}
-        setVisible={setVisible}
-        setModal={setModal}
-      />
-    ) : (
-      <ImageBox uri={selectedPhoto.uri} setModal={setModal} />
-    );
-  };
+      ) : (
+        <ImageBox uri={selectedPhoto.uri} setModal={setModal} />
+      );
+    },
+    [selectedPhoto, isVisible, setVisible, setModal],
+  );
 
   return (
-    <View style={styles.flatContainer}>
-      <Modal
-        backdropOpacity={0.95}
-        isVisible={showModal}
-        onModalShow={() => setVisible(true)}
-        onModalHide={() => {
-          setPhoto({uri: null, isVideo: null});
-          setVisible(false);
-        }}
-        onBackdropPress={() => setModal(false)}>
-        {renderModalContent(selectedPhoto.isVideo)}
-      </Modal>
+    <Provider>
+      <View style={styles.flatContainer}>
+        <Modal
+          backdropOpacity={0.95}
+          isVisible={showModal}
+          onModalShow={() => setVisible(true)}
+          onModalHide={() => {
+            setPhoto({uri: null, isVideo: null});
+            setVisible(false);
+          }}
+          onBackdropPress={() => setModal(false)}>
+          {renderModalContent(selectedPhoto.isVideo)}
+        </Modal>
 
-      <View style={styles.wrapperList}>
-        <FlatList
-          data={tabName === routes.GALLERY_SCREEN ? photos : favouritesList}
-          numColumns={2}
-          renderItem={renderItem}
-          keyExtractor={(item, index) => index.toString()}
-          ListHeaderComponent={() => <View style={styles.listHeader} />}
+        <View style={styles.wrapperList}>
+          <FlatList
+            data={tabName === routes.GALLERY_SCREEN ? photos : favouritesList}
+            numColumns={2}
+            onScroll={e => {
+              setCenter(
+                e.nativeEvent.contentOffset.y +
+                  (screenHeigth - headerHeight) / 2,
+              );
+            }}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+            ListHeaderComponent={() => <View style={styles.listHeader} />}
+          />
+        </View>
+        <Filter
+          filterOptions={filterOptions}
+          setFilterOptions={setFilterOptions}
         />
       </View>
-    </View>
+    </Provider>
   );
 };
 

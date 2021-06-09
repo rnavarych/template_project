@@ -1,5 +1,11 @@
 import {StyleSheet} from 'react-native';
 
+const sharedStyles = {
+  marginLeft: 12,
+  marginRight: 12,
+  marginBottom: 24,
+};
+
 export default StyleSheet.create({
   flatContainer: {
     flex: 1,
@@ -10,10 +16,11 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    marginLeft: 12,
-    marginRight: 12,
+    ...sharedStyles,
     resizeMode: 'cover',
-    marginBottom: 24,
+  },
+  videoPlayer: {
+    ...sharedStyles,
   },
   imageStyle: {
     borderRadius: 12,
@@ -24,10 +31,10 @@ export default StyleSheet.create({
   icon: {
     position: 'absolute',
     zIndex: 1,
-    left: 13
+    left: 13,
   },
-  video:{
-    top: 25
+  video: {
+    top: 25,
   },
   touchableStyle: {
     width: 50,
