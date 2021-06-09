@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import {useEffect} from 'react';
 import {Alert} from 'react-native';
 import messaging, {firebase} from '@react-native-firebase/messaging';

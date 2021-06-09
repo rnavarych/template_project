@@ -1,7 +1,6 @@
 import {StyleSheet, Platform} from 'react-native';
 import {scale} from '../../utils/cameraUtils';
 import {getStatusBarHeight} from '../../utils/utils';
-import {_animatedOpacity} from './index';
 import {backGround} from '../../constants/colors';
 
 export default StyleSheet.create({

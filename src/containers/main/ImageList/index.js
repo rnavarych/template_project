@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {View, Alert, Animated, SafeAreaView} from 'react-native';
+import {Alert, Animated, SafeAreaView} from 'react-native';
 import storage from '@react-native-firebase/storage';
 import {utils} from '@react-native-firebase/app';
 import Share from 'react-native-share';
@@ -100,7 +100,7 @@ const ImageList = () => {
 
     return scrollY.interpolate({
       inputRange: getInputRange(index),
-      outputRange: [0, 0, 0, (BLOCK_SIZE + diff/2) / 2, BLOCK_SIZE + diff],
+      outputRange: [0, 0, 0, (BLOCK_SIZE + diff / 2) / 2, BLOCK_SIZE + diff],
     });
   };
 

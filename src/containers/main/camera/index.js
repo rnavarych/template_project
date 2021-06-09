@@ -4,7 +4,7 @@ import CameraRoll from '@react-native-community/cameraroll';
 import CameraView from '../../../components/cameraView';
 
 const CameraScreen = props => {
-  const [uri, setUri] = useState(null);
+  const [uri, setUri] = useState(null); //eslint-disable-line no-unused-vars
   const [takingPhoto, setTakingPhoto] = useState(false);
   const cameraRef = useRef();
 

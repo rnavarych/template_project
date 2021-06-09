@@ -63,7 +63,7 @@ const GalleryStackScreen = () => {
 const HomeStackScreen = () => {
   const username = useSelector(state => state.auth.username);
   const {reset} = useNavigation();
-  const lastScreen = useNavigationState(state => {
+  const lastScreenVisited = useNavigationState(state => {
     const lastScreen = [];
     const currentRouteTop = state.routeNames[state.index];
     lastScreen[0] = currentRouteTop;
@@ -82,7 +82,9 @@ const HomeStackScreen = () => {
       if (new Date().getTime() >= dateExpire) {
         reset({
           index: 0,
-          routes: [{name: routes.LOGIN_SCREEN, params: {username, lastScreen}}],
+          routes: [
+            {name: routes.LOGIN_SCREEN, params: {username, lastScreenVisited}},
+          ],
         });
       }
     }, 1000 * 60);
@@ -90,7 +92,7 @@ const HomeStackScreen = () => {
     return () => {
       clearInterval(interval);
     };
-  }, [lastScreen]);
+  }, [lastScreenVisited]);
 
   return (
     <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>

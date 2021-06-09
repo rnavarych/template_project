@@ -28,7 +28,7 @@ const CameraView = ({onCameraRef, onCameraButton, onBackButtonPress}) => {
   });
 
   const updateCameraDimensions = ({window: {width, height}}) => {
-    let cameraWidth, cameraHeight;
+    let cameraWidth, cameraHeight; //eslint-disable-line no-shadow
     if (height > width) {
       cameraWidth = width;
       cameraHeight = (4 * width) / 3;
@@ -36,6 +36,7 @@ const CameraView = ({onCameraRef, onCameraButton, onBackButtonPress}) => {
       cameraHeight = height;
       cameraWidth = (4 * height) / 3;
     }
+
     setCameraWidth(cameraWidth);
     setCameraHeight(cameraHeight);
     setPortraitOrientation(height > width);

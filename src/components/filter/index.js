@@ -2,12 +2,13 @@ import React, {useState} from 'react';
 import {FAB, Portal} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+//eslint-disable-next-line no-unused-vars
 import styles from './styles';
 
 const Filter = ({filterOptions, setFilterOptions}) => {
   const {photo, video} = filterOptions;
   const [open, setOpen] = useState(false);
-  const onStateChange = ({open}) => setOpen(open);
+  const onStateChange = ({open: openFba}) => setOpen(openFba);
   return (
     <Portal>
       <FAB.Group
