@@ -74,12 +74,16 @@
     "@react-native-community/eslint-config": "^2.0.0",
     "babel-jest": "^26.6.3",
     "eslint": "^7.25.0",
+    "husky": "^6.0.0",
     "jest": "^26.6.3",
+    "lint-staged": "^11.0.0",
     "metro-react-native-babel-preset": "^0.64.0",
-    "react-test-renderer": "17.0.1",
-    "husky": "^6.0.0"
+    "react-test-renderer": "17.0.1"
   },
   "jest": {
     "preset": "react-native"
+  },
+  "lint-staged":{
+    "*.js": "eslint --rule {'no-console':'error'}"
   }
 }
