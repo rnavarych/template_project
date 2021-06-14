@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {I18nManager, View} from 'react-native';
 import {connect, useSelector, useDispatch} from 'react-redux';
 import ReactRestart from 'react-native-restart';
-import crashlytics from '@react-native-firebase/crashlytics';
 import {changeTab, logEvent} from '../../../analytics';
 import {changeTheme} from '../../../actions/changeTheme';
 import {SwitchLabel} from '../../../components/switchlabel';

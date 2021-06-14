@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, useCallback, useMemo} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   FlatList,
@@ -11,7 +11,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
 import Modal from 'react-native-modal';
-import {Provider, FAB} from 'react-native-paper';
+import {Provider} from 'react-native-paper';
 import {useHeaderHeight} from '@react-navigation/stack';
 import VideoPlayer from 'react-native-video';
 
@@ -38,9 +38,9 @@ const getAssetType = filterOptions => {
 const {height: screenHeigth} = Dimensions.get('window');
 
 const GalleryScreen = ({
-  addToFavourites,
+  addToFavourites, //eslint-disable-line no-shadow
   tabName,
-  deleteFavourites,
+  deleteFavourites, //eslint-disable-line no-shadow
   favouritesList,
 }) => {
   const [photos, setPhotos] = useState([]);
@@ -71,6 +71,12 @@ const GalleryScreen = ({
 
   const renderImageBlock = useCallback(
     ({item, height, calculatedWidth, uri, isVideo}) => {
+      const imageParams = {
+        width: calculatedWidth - 30,
+        height,
+        borderRadius: 12,
+      };
+
       return (
         <View>
           <TouchableWithoutFeedback
@@ -80,14 +86,7 @@ const GalleryScreen = ({
             <Image
               source={{uri}}
               imageStyle={styles.imageStyle}
-              style={[
-                styles.image,
-                {
-                  width: calculatedWidth - 30,
-                  height,
-                  borderRadius: 12,
-                },
-              ]}
+              style={[styles.image, imageParams]}
             />
           </TouchableWithoutFeedback>
           {tabName === routes.GALLERY_SCREEN
@@ -108,18 +107,17 @@ const GalleryScreen = ({
           uri.replace('ph://', '').split('/')[0]
         }&ext=MOV`;
       }
+      const videoParams = {
+        width: calculatedWidth - 30,
+        height,
+        borderRadius: 12,
+      };
+
       return (
         <VideoPlayer
           source={{uri: newUri}}
           resizeMode={'cover'}
-          style={[
-            styles.videoPlayer,
-            {
-              width: calculatedWidth - 30,
-              height,
-              borderRadius: 12,
-            },
-          ]}
+          style={[styles.videoPlayer, videoParams]}
         />
       );
     },
@@ -176,7 +174,7 @@ const GalleryScreen = ({
       const selectedElements = item.id
         ? {uri: item.url, id: item.id}
         : {uri: item.node.image.uri, id: Date.now()};
-      const icons = favouritesList.map(item => item.uri);
+      const icons = favouritesList.map(favItem => favItem.uri);
 
       const uri = item.url || item.node.image.uri;
 

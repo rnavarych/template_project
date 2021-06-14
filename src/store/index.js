@@ -30,7 +30,6 @@ export const configureStore = () => {
   });
 
   const persitedReducer = persistReducer(persistConfig, rootReducer);
-
   const store = createStore(persitedReducer, applyMiddleware(...middlewares));
   const persistor = persistStore(store);
   return {store, persistor};

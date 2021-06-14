@@ -5,10 +5,10 @@ export default StyleSheet.create({
     flex: 1,
     zIndex: 1,
   },
-  icon:{
+  icon: {
     alignSelf: 'center',
   },
-  focusStyles:{
-    top: -7
-  }
+  focusStyles: {
+    top: -7,
+  },
 });

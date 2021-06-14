@@ -12,7 +12,7 @@ import Geolocation from 'react-native-geolocation-service';
 
 import Progress from '../../../components/Progress';
 
-import { initialRegion } from '../../../constants/map'
+import {initialRegion} from '../../../constants/map';
 import {strings} from '../../../l18n';
 import {polylineColor} from '../../../constants/colors';
 import {
@@ -51,9 +51,7 @@ const Map = () => {
           longitude: position.coords.longitude,
         },
       })
-      .then(() => {
-        console.log('User updated!');
-      });
+      .then(() => null);
   };
 
   const showErr = err =>

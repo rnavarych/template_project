@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
-import {Text, View, ScrollView} from 'react-native';
+import {View} from 'react-native';
 
-import ImageList from '../ImageList';
 import HomeButton from '../../../components/homeButton';
 import {connect} from 'react-redux';
 import * as routes from '../../../constants/routes';

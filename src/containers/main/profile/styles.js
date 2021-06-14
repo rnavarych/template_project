@@ -19,7 +19,7 @@ export default EStyleSheet.create({
     justifyContent: 'center',
     height: 30,
     borderRadius: 5,
-    width: 70
+    width: 70,
   },
   styledSmallButtonRed: {
     top: 25,
@@ -29,7 +29,7 @@ export default EStyleSheet.create({
     backgroundColor: '$warningRed',
     height: 30,
     borderRadius: 5,
-    width: 70
+    width: 70,
   },
   styledButton: {
     marginVertical: 5,

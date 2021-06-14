@@ -1,4 +1,3 @@
-import React from 'react';
 import {Platform, Dimensions, StatusBar} from 'react-native';
 import {showErr} from './error';
 import CameraRoll from '@react-native-community/cameraroll';

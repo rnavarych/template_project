@@ -15,11 +15,10 @@ const icons = {
 };
 
 const TabItem = ({index, onPress, descriptors, route, isFocused}) => {
-  const {options} = descriptors[route.key];
+  const getIconName = icon =>
+    icon.substring(0, icon.length - '-outline'.length);
 
-  const getIconName = icon => icon.substring(0, icon.length - '-outline'.length);
-
-  const tabBarIconHandler = (route, color, size) => {
+  const tabBarIconHandler = (color, size) => {
     let iconName = isFocused
       ? getIconName(icons[route.name])
       : icons[route.name];
@@ -41,7 +40,7 @@ const TabItem = ({index, onPress, descriptors, route, isFocused}) => {
       onPress={() => onPress(isFocused, index, route)}
       style={styles.btn}>
       <View style={styles.tabBarItem}>
-        {tabBarIconHandler(route, isFocused ? focusedBtn : unFocusedBtn, 24)}
+        {tabBarIconHandler(isFocused ? focusedBtn : unFocusedBtn, 24)}
       </View>
     </TouchableOpacity>
   );
