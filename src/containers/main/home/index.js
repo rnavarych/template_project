@@ -33,11 +33,7 @@ function HomeScreen(props) {
           buttonText={strings('headers.gallery')}
         />
       </View>
-      <NativeButton
-        title="test"
-        onClick={handleClick}
-        // backgroundColor={[255, 255, 255]}
-      />
+      <NativeButton title="test" onClick={handleClick} />
       <View style={styles.pickerStyle}>
         <PhotoPicker />
       </View>
