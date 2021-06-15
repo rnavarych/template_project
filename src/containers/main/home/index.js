@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import * as routes from '../../../constants/routes';
 import images from '../../../configs/images';
 import PhotoPicker from '../../../components/imagePicker';
+import NativeButton from '../../../components/nativeButton';
 
 import {changeTab} from '../../../analytics/';
 import styles from './styles';
@@ -15,6 +16,8 @@ function HomeScreen(props) {
   useEffect(() => {
     changeTab(HomeScreen.name, HomeScreen.name);
   }, []);
+
+  const handleClick = e => {};
 
   return (
     <>
@@ -30,6 +33,11 @@ function HomeScreen(props) {
           buttonText={strings('headers.gallery')}
         />
       </View>
+      <NativeButton
+        title="test"
+        onClick={handleClick}
+        // backgroundColor={[255, 255, 255]}
+      />
       <View style={styles.pickerStyle}>
         <PhotoPicker />
       </View>
