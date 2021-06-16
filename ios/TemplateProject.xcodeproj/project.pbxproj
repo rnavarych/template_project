@@ -14,8 +14,10 @@
 		1D360B05263C016100C15AA1 /* libswiftWebKit.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D360B04263C016100C15AA1 /* libswiftWebKit.tbd */; };
 		395966EF9F705F07045512A6 /* libPods-TemplateProject-TemplateProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1ED5ADCDD4D0C534BE88072 /* libPods-TemplateProject-TemplateProjectTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		A748A7262678AECF003479C5 /* NativeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A748A7252678AECF003479C5 /* NativeButton.swift */; };
+		A748A72A2678AF04003479C5 /* NativeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A748A7292678AF04003479C5 /* NativeButton.m */; };
 		A79F1E902643C93900504C01 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A79F1E8F2643C93900504C01 /* MapKit.framework */; };
-		A79F1E962643CA5B00504C01 /* 1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F1E952643CA5B00504C01 /* 1.swift */; };
+		A79F1E962643CA5B00504C01 /* NativeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F1E952643CA5B00504C01 /* NativeButtonView.swift */; };
 		A79F1F562643CEBB00504C01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A79F1F552643CEBB00504C01 /* GoogleService-Info.plist */; };
 		B760EBAF2F7113B3162E4C04 /* libPods-TemplateProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D2DFD89D70B65BEDD45093 /* libPods-TemplateProject.a */; };
 /* End PBXBuildFile section */
@@ -46,9 +48,11 @@
 		7D4C10A850C6A046DDBBBA09 /* Pods-TemplateProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TemplateProject.release.xcconfig"; path = "Target Support Files/Pods-TemplateProject/Pods-TemplateProject.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = TemplateProject/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86501A336CFF92C0FEB890D8 /* Pods-TemplateProject-TemplateProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TemplateProject-TemplateProjectTests.release.xcconfig"; path = "Target Support Files/Pods-TemplateProject-TemplateProjectTests/Pods-TemplateProject-TemplateProjectTests.release.xcconfig"; sourceTree = "<group>"; };
+		A748A7252678AECF003479C5 /* NativeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeButton.swift; sourceTree = "<group>"; };
+		A748A7292678AF04003479C5 /* NativeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeButton.m; sourceTree = "<group>"; };
 		A74ACF2426415ADB00368E07 /* TemplateProject-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TemplateProject-Bridging-Header.h"; sourceTree = "<group>"; };
 		A79F1E8F2643C93900504C01 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		A79F1E952643CA5B00504C01 /* 1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1.swift; sourceTree = "<group>"; };
+		A79F1E952643CA5B00504C01 /* NativeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeButtonView.swift; sourceTree = "<group>"; };
 		A79F1F552643CEBB00504C01 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B1ED5ADCDD4D0C534BE88072 /* libPods-TemplateProject-TemplateProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TemplateProject-TemplateProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8D2DFD89D70B65BEDD45093 /* libPods-TemplateProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TemplateProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,7 +110,9 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				A74ACF2426415ADB00368E07 /* TemplateProject-Bridging-Header.h */,
-				A79F1E952643CA5B00504C01 /* 1.swift */,
+				A79F1E952643CA5B00504C01 /* NativeButtonView.swift */,
+				A748A7252678AECF003479C5 /* NativeButton.swift */,
+				A748A7292678AF04003479C5 /* NativeButton.m */,
 			);
 			name = TemplateProject;
 			sourceTree = "<group>";
@@ -419,9 +425,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A79F1E962643CA5B00504C01 /* 1.swift in Sources */,
+				A748A7262678AECF003479C5 /* NativeButton.swift in Sources */,
+				A79F1E962643CA5B00504C01 /* NativeButtonView.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				A748A72A2678AF04003479C5 /* NativeButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
