@@ -22,6 +22,7 @@ public class NativeButton extends androidx.appcompat.widget.AppCompatButton {
         super(context);
         this.setOnClickListener(clickListener);
         this.setTitle(title);
+        this.setBackgroundColor(Color.TRANSPARENT);
     }
 
     public NativeButton(Context context, AttributeSet attrs) {

@@ -20,7 +20,9 @@ const d = curveLineSvgHome;
 
 function CustomTabBar({state, descriptors, navigation}) {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
-  const [leftValue] = useState(new Animated.Value(diff));
+  const [leftValue] = useState(
+    new Animated.Value(diff + tabWidth * state.index),
+  );
   const {colors} = useTheme();
 
   const animeStyles = {

@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View} from 'react-native';
+import {View, NativeModules} from 'react-native';
 
 import HomeButton from '../../../components/homeButton';
 import {connect} from 'react-redux';
@@ -12,12 +12,16 @@ import {changeTab} from '../../../analytics/';
 import styles from './styles';
 import {strings} from '../../../l18n';
 
+const {RNRestart} = NativeModules;
+
 function HomeScreen(props) {
   useEffect(() => {
     changeTab(HomeScreen.name, HomeScreen.name);
   }, []);
 
-  const handleClick = e => {};
+  const handleClick = e => {
+    RNRestart.Restart();
+  };
 
   return (
     <>
