@@ -40,7 +40,7 @@ function LoginScreen(props) {
       setUserName('');
       setPassword('');
       if (params) {
-        props.navigation.navigate(...params.lastScreen);
+        props.navigation.navigate(...params.lastScreenVisited);
       } else {
         dispatch(setUsername(username));
         logSignUp('email&pass');
