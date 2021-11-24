@@ -30,7 +30,7 @@ export const configureStore = () => {
     storage: AsyncStorage,
     timeout: null,
     whitelist: ['auth', 'changeTheme', 'settings'],
-    // blacklist: ['setUsername', 'ble'],
+    blacklist: ['setUsername'],
   };
 
   const rootReducer = combineReducers({
