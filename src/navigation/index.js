@@ -15,10 +15,10 @@ import {
   DarkTheme as PaperDarkTheme,
   DefaultTheme as PaperDefaultTheme,
 } from 'react-native-paper';
-
-import * as routes from '../constants/routes';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import {useSelector} from 'react-redux';
 
+import * as routes from '../constants/routes';
 import {strings} from '../l18n';
 
 import CustomTabBar from '../containers/main/tab';
@@ -32,9 +32,15 @@ import CameraScreen from '../containers/main/camera';
 import GalleryScreen from '../containers/main/gallery';
 import ImageList from '../containers/main/ImageList';
 
+import BlePermissionScreen from '../containers/main/ble/blePermissionScreen';
+import DeviceListScreen from '../containers/main/ble/deviceListScreen';
+import DeviceLogScreen from '../containers/main/ble/logScreen';
+import CustomDrawer from '../components/customDrawer/';
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
+const Drawer = createDrawerNavigator();
 
 const GalleryComponent = props => {
   const {name} = props.route;
@@ -95,13 +101,63 @@ const HomeStackScreen = () => {
   }, [lastScreenVisited]);
 
   return (
-    <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
-      <Tab.Screen name={routes.HOME_SCREEN} component={HomeScreen} />
-      <Tab.Screen name={routes.IMAGES_SCREEN} component={ImageList} />
-      <Tab.Screen name={routes.SETTINGS_SCREEN} component={SettingsScreen} />
-      <Tab.Screen name={routes.PROFILE_SCREEN} component={ProfileScreen} />
-      <Tab.Screen name={routes.MAP_SCREEN} component={MapScreen} />
-    </Tab.Navigator>
+    <Drawer.Navigator
+      screenOptions={{
+        drawerStyle: {
+          borderTopRightRadius: 10,
+          borderBottomRightRadius: 100,
+        },
+      }}
+      drawerContent={props => <CustomDrawer {...props} />}>
+      <Drawer.Screen
+        name={routes.HOME_SCREEN}
+        component={HomeScreen}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: 'pop',
+        }}
+      />
+      <Drawer.Screen
+        name={routes.IMAGES_SCREEN}
+        component={ImageList}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: 'pop',
+        }}
+      />
+      <Drawer.Screen
+        name={routes.SETTINGS_SCREEN}
+        component={SettingsScreen}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: 'pop',
+        }}
+      />
+      <Drawer.Screen
+        name={routes.PROFILE_SCREEN}
+        component={ProfileScreen}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: 'pop',
+        }}
+      />
+      <Drawer.Screen
+        name={routes.PERMISSION_SCREEN}
+        component={BlePermissionScreen}
+        options={{
+          drawerLabel: 'Bluetooth',
+          headerShown: false,
+        }}
+      />
+      <Drawer.Screen
+        name={routes.MAP_SCREEN}
+        component={MapScreen}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: 'pop',
+        }}
+      />
+    </Drawer.Navigator>
   );
 };
 
@@ -129,7 +185,7 @@ const Navigation = () => {
               animationTypeForReplace: 'pop',
             }}
           />
-          <Stack.Screen
+           <Stack.Screen
             name={routes.PROFILE_SCREEN}
             component={HomeStackScreen}
             options={{
@@ -151,6 +207,22 @@ const Navigation = () => {
             options={{
               headerTitle: strings('headers.photos'),
               headerBackTitle: false,
+              animationTypeForReplace: 'pop',
+            }}
+          />
+          <Stack.Screen
+            name={routes.DEVICE_LIST_SCREEN}
+            component={DeviceListScreen}
+            options={{
+              headerShown: false,
+              animationTypeForReplace: 'pop',
+            }}
+          />
+          <Stack.Screen
+            name={routes.DEVICE_LOG_SCREEN}
+            component={DeviceLogScreen}
+            options={{
+              headerShown: true,
               animationTypeForReplace: 'pop',
             }}
           />

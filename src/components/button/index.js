@@ -6,6 +6,8 @@ import {
   View,
   Image,
 } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {menuButton, lightBack} from '../../constants/colors';
 
 import styles from './styles';
 
@@ -17,13 +19,26 @@ function Button(props) {
     containerStyle,
     textStyle,
     icon,
+    vectorIcon,
+    iconSize,
   } = props;
 
   const buttonContent = () => {
-    return icon ? (
+    return vectorIcon ? (
+      <View style={styles.iconHolder}>
+        {vectorIcon && (
+          <Ionicons
+            name={vectorIcon}
+            size={iconSize}
+            color={lightBack}
+            style={{}}
+          />
+        )}
+        <Text style={[styles.text, textStyle]}>{text}</Text>
+      </View>
+    ) : icon ? (
       <View style={styles.iconHolder}>
         {icon && <Image style={styles.image} source={icon} />}
-
         <Text style={[styles.text, textStyle]}>{text}</Text>
       </View>
     ) : (
