@@ -18,9 +18,9 @@ const emptyDevice = {
 
 export const scan = () => {
   return (
-    dispatch: AppDispatch,
-    getState: () => RootState,
-    DeviceManager: BleManager,
+    dispatch,
+    getState,
+    DeviceManager,
   ) => {
     dispatch(bluetoothOn());
     DeviceManager.startDeviceScan(null, null, (error, device) => {
@@ -29,7 +29,7 @@ export const scan = () => {
         return;
       }
       device &&
-        device.isConnected().then((isConnected: boolean) => {
+        device.isConnected().then((isConnected) => {
           let {
             ble: {devices},
           } = getState();
@@ -49,7 +49,7 @@ export const scan = () => {
   };
 };
 
-const checkIsScanned = (device: Device, devices: Device[]) => {
+const checkIsScanned = (device, devices) => {
   const found = devices.find(
     deviceInStorage => deviceInStorage.id === device.id,
   );
@@ -61,9 +61,9 @@ const checkIsScanned = (device: Device, devices: Device[]) => {
 
 export const stopScan = () => {
   return (
-    dispatch: AppDispatch,
-    getState: () => RootState,
-    DeviceManager: BleManager,
+    dispatch,
+    getState,
+    DeviceManager,
   ) => {
     let {
       ble: {device, devices},
@@ -75,9 +75,9 @@ export const stopScan = () => {
 
 export const disconnectDevice = () => {
   return (
-    dispatch: AppDispatch,
-    getState: () => RootState,
-    DeviceManager: BleManager,
+    dispatch,
+    getState,
+    DeviceManager,
   ) => {
     let {
       ble: {device, devices},
@@ -94,11 +94,11 @@ export const disconnectDevice = () => {
   };
 };
 
-export const subscibeOnDevice = (isMounted: boolean, onDisconnect: () => void) => {
+export const subscibeOnDevice = (isMounted, onDisconnect) => {
   return (
-    dispatch: AppDispatch,
-    getState: () => RootState,
-    DeviceManager: BleManager,
+    dispatch,
+    getState,
+    DeviceManager,
   ) => {
     let {
       ble: {device, devices},
@@ -115,11 +115,11 @@ export const subscibeOnDevice = (isMounted: boolean, onDisconnect: () => void) =
   };
 };
 
-export const updateConnect = (connectingDevice: Device) => {
+export const updateConnect = (connectingDevice) => {
   return (
-    dispatch: AppDispatch,
-    getState: () => RootState,
-    DeviceManager: BleManager,
+    dispatch,
+    getState,
+    DeviceManager,
   ) => {
     let {
       ble: {device, devices},
@@ -146,10 +146,10 @@ export const updateConnect = (connectingDevice: Device) => {
 };
 
 const connectDevice = (
-  dispatch: AppDispatch,
-  getState: () => RootState,
-  DeviceManager: BleManager,
-  connectingDevice: Device,
+  dispatch,
+  getState,
+  DeviceManager,
+  connectingDevice,
 ) => {
   dispatch(
     updateDevice({
@@ -177,7 +177,7 @@ const connectDevice = (
         }
       });
     })
-    .catch((error: any) => {
+    .catch((error) => {
       const deviceState = {
         ...connectingDevice,
         isConnecting: false,

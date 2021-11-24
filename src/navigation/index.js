@@ -185,14 +185,6 @@ const Navigation = () => {
               animationTypeForReplace: 'pop',
             }}
           />
-           <Stack.Screen
-            name={routes.PROFILE_SCREEN}
-            component={HomeStackScreen}
-            options={{
-              headerShown: false,
-              animationTypeForReplace: 'pop',
-            }}
-          />
           <Stack.Screen
             name={routes.CAMERA_SCREEN}
             component={CameraScreen}
@@ -214,7 +206,7 @@ const Navigation = () => {
             name={routes.DEVICE_LIST_SCREEN}
             component={DeviceListScreen}
             options={{
-              headerShown: false,
+              headerShown: true,
               animationTypeForReplace: 'pop',
             }}
           />

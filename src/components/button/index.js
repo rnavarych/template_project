@@ -24,26 +24,29 @@ function Button(props) {
   } = props;
 
   const buttonContent = () => {
-    return vectorIcon ? (
-      <View style={styles.iconHolder}>
-        {vectorIcon && (
-          <Ionicons
-            name={vectorIcon}
-            size={iconSize}
-            color={lightBack}
-            style={{}}
-          />
-        )}
+    if (vectorIcon) {
+      return (
+        <View style={styles.iconHolder}>
+          {vectorIcon && (
+            <Ionicons
+              name={vectorIcon}
+              size={iconSize}
+              color={lightBack}
+              style={{}}
+            />
+          )}
+          <Text style={[styles.text, textStyle]}>{text}</Text>
+        </View>
+      );
+    } else
+      return icon ? (
+        <View style={styles.iconHolder}>
+          {icon && <Image style={styles.image} source={icon} />}
+          <Text style={[styles.text, textStyle]}>{text}</Text>
+        </View>
+      ) : (
         <Text style={[styles.text, textStyle]}>{text}</Text>
-      </View>
-    ) : icon ? (
-      <View style={styles.iconHolder}>
-        {icon && <Image style={styles.image} source={icon} />}
-        <Text style={[styles.text, textStyle]}>{text}</Text>
-      </View>
-    ) : (
-      <Text style={[styles.text, textStyle]}>{text}</Text>
-    );
+      );
   };
 
   return (

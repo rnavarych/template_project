@@ -1,16 +1,17 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  containerStyle: {flex: 1, marginVertical: 15, marginHorizontal: 15},
   btn: {
     flex: 1,
+    marginVertical: 15,
+    marginHorizontal: 15,
   },
   drawBarItem: {
     flexDirection: 'row',
   },
   textStyle: {
     fontSize: 18,
-    fontWeight: '600'
+    fontWeight: '600',
   },
   textContainer: {
     marginHorizontal: 10,
