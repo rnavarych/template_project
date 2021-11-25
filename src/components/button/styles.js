@@ -8,7 +8,6 @@ export default EStyleSheet.create({
     borderRadius: 5,
     height: 50,
     backgroundColor: '$stylishBlue',
-    marginTop: 10,
   },
   iconHolder: {
     flexDirection: 'row',

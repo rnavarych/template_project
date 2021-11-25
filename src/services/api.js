@@ -53,7 +53,10 @@ export const apiMiddleware = store => next => action => {
   let {endpoint} = action;
   const {types, method, body, extras, headers} = action;
 
-  if (!endpoint && !method && !types && action.type) {
+  if (
+    (!endpoint && !method && !types && action.type) ||
+    typeof action === 'function'
+  ) {
     return next(action);
   }
 

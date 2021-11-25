@@ -7,3 +7,7 @@ export const CAMERA_SCREEN = 'CameraScreen';
 export const IMAGES_SCREEN = 'ImagesScreen';
 export const GALLERY_SCREEN = 'Gallery';
 export const FAVOURITES_SCREEN = 'Favourites';
+
+export const DEVICE_LIST_SCREEN = 'DeviceList'
+export const PERMISSION_SCREEN = 'BlePermissions'
+export const DEVICE_LOG_SCREEN = 'DeviceLogScreen'

@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, {useEffect} from 'react';
+import React from 'react';
 import analytics from '@react-native-firebase/analytics';
 import {
   NavigationContainer,
@@ -7,103 +7,23 @@ import {
   DefaultTheme,
 } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {useNavigation, useNavigationState} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {
   Provider as PaperProvider,
   DarkTheme as PaperDarkTheme,
   DefaultTheme as PaperDefaultTheme,
 } from 'react-native-paper';
 
-import * as routes from '../constants/routes';
 import {useSelector} from 'react-redux';
 
+import * as routes from '../constants/routes';
 import {strings} from '../l18n';
 
-import CustomTabBar from '../containers/main/tab';
+import HomeStackScreen from './drawerStack';
+import GalleryStackScreen from './galleryStack';
 import LoginScreen from '../containers/auth';
-import HomeScreen from '../containers/main/home';
-import SettingsScreen from '../containers/main/settings';
-import ProfileScreen from '../containers/main/profile';
-
-import MapScreen from '../containers/main/map';
 import CameraScreen from '../containers/main/camera';
-import GalleryScreen from '../containers/main/gallery';
-import ImageList from '../containers/main/ImageList';
 
-const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
-const TopTab = createMaterialTopTabNavigator();
-
-const GalleryComponent = props => {
-  const {name} = props.route;
-  if (name === routes.GALLERY_SCREEN) {
-    return <GalleryScreen tabName={routes.GALLERY_SCREEN} />;
-  } else {
-    return <GalleryScreen tabName={routes.FAVOURITES_SCREEN} />;
-  }
-};
-
-const GalleryStackScreen = () => {
-  return (
-    <TopTab.Navigator>
-      <TopTab.Screen
-        name={routes.GALLERY_SCREEN}
-        component={GalleryComponent}
-      />
-      <TopTab.Screen
-        name={routes.FAVOURITES_SCREEN}
-        component={GalleryComponent}
-      />
-    </TopTab.Navigator>
-  );
-};
-
-const HomeStackScreen = () => {
-  const username = useSelector(state => state.auth.username);
-  const {reset} = useNavigation();
-  const lastScreenVisited = useNavigationState(state => {
-    const lastScreen = [];
-    const currentRouteTop = state.routeNames[state.index];
-    lastScreen[0] = currentRouteTop;
-    if (state.routes[state.index].state) {
-      const index = state.routes[state.index].state.index;
-      const currentRoutChild =
-        state.routes[state.index].state.routeNames[index];
-      lastScreen[1] = {screen: currentRoutChild};
-    }
-    return lastScreen;
-  });
-  const dateExpire = new Date().getTime() + 1000 * 10 * 60;
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (new Date().getTime() >= dateExpire) {
-        reset({
-          index: 0,
-          routes: [
-            {name: routes.LOGIN_SCREEN, params: {username, lastScreenVisited}},
-          ],
-        });
-      }
-    }, 1000 * 60);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [lastScreenVisited]);
-
-  return (
-    <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
-      <Tab.Screen name={routes.HOME_SCREEN} component={HomeScreen} />
-      <Tab.Screen name={routes.IMAGES_SCREEN} component={ImageList} />
-      <Tab.Screen name={routes.SETTINGS_SCREEN} component={SettingsScreen} />
-      <Tab.Screen name={routes.PROFILE_SCREEN} component={ProfileScreen} />
-      <Tab.Screen name={routes.MAP_SCREEN} component={MapScreen} />
-    </Tab.Navigator>
-  );
-};
+export const Stack = createStackNavigator();
 
 const Navigation = () => {
   const isDark = useSelector(state => state.changeTheme.isDarkTheme);
@@ -130,14 +50,6 @@ const Navigation = () => {
             }}
           />
           <Stack.Screen
-            name={routes.PROFILE_SCREEN}
-            component={HomeStackScreen}
-            options={{
-              headerShown: false,
-              animationTypeForReplace: 'pop',
-            }}
-          />
-          <Stack.Screen
             name={routes.CAMERA_SCREEN}
             component={CameraScreen}
             options={{
@@ -153,7 +65,7 @@ const Navigation = () => {
               headerBackTitle: false,
               animationTypeForReplace: 'pop',
             }}
-          />
+          /> 
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

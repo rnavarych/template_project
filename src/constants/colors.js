@@ -20,3 +20,10 @@ export const shadowColor = '#333333';
 
 export const focusedBtn = 'tomato';
 export const unFocusedBtn = 'gray';
+
+export const menuButton = '#fe734c';
+export const lightBack = '#ffffff';
+export const bluetoothColor = '#798ce0';
+export const disabledBtn = '#808080';
+export const listItem = '#f0f0f0';
+

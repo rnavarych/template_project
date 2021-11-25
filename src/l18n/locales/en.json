@@ -10,7 +10,9 @@
     "msg_share":"msg share"
   },
   "permission":{
-    "denied": "Permissions denied"
+    "denied": "Permissions denied",
+    "granted": "Permission is granted",
+    "ask": "Ask permissions"
   },
   "placeholder": {
     "username": "User Name",
@@ -18,7 +20,8 @@
   },
   "headers": {
     "gallery": "Gallery",
-    "photos": "Photos"
+    "photos": "Photos",
+    "bluetooth": "Bluetooth"
   },
   "buttons": {
     "login": "Sign in",
@@ -32,7 +35,15 @@
     "take_photo": "Take Photo",
     "choose_from_lib": "Choose From Library",
     "pick_img": "Pick Image",
-    "camera": "Camera"
+    "camera": "Camera",
+    "logout": "Log Out",
+    "next": "Next",
+    "hide": "Hide",
+    "info": "Info",
+    "connect": "Connect",
+    "disconnect": "Disconnect",
+    "connected": "Connected",
+    "connecting": "Connecting.."
   },
   "errors": {
     "wrongCreads": "Wrong Username or Password",

@@ -1,4 +1,11 @@
 import {PermissionsAndroid} from 'react-native';
+import {
+  PERMISSIONS,
+  RESULTS,
+  checkMultiple,
+  requestMultiple,
+} from 'react-native-permissions';
+
 
 const {
   ACCESS_FINE_LOCATION,
@@ -25,4 +32,31 @@ export const requestReadStoragePermission = async () => {
   if (!check) return PermissionsAndroid.request(READ_EXTERNAL_STORAGE);
 
   return PermissionsAndroid.RESULTS.GRANTED;
+};
+
+export const checkBluetooth_ = async () => {
+  return checkMultiple([
+    PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+    PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,
+    PERMISSIONS.ANDROID.BLUETOOTH_SCAN,
+    PERMISSIONS.ANDROID.BLUETOOTH_ADVERTISE,
+  ])
+    .then(statuses => {
+      return statuses[PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION] === RESULTS.GRANTED;
+    })
+    .catch(error => {
+      console.log(error);
+      return false;
+    });
+};
+
+export const requestBluetooth_ = async () => {
+  requestMultiple([
+    PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+    PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,
+    PERMISSIONS.ANDROID.BLUETOOTH_SCAN,
+    PERMISSIONS.ANDROID.BLUETOOTH_ADVERTISE,
+  ]).then(statuses => {
+    return `Bluetooth ${statuses[PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION]}`;
+  });
 };
