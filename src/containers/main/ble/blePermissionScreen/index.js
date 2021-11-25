@@ -52,15 +52,13 @@ const PersmScreen = () => {
       </View>
       <View style={styles.bottomContainer}>
         <View style={styles.buttonContainer}>
-          {!permissions ? (
+          {!permissions && (
             <Button
               text={strings('permission.ask')}
-              containerStyle={{...styles.button}}
+              containerStyle={styles.button}
               textStyle={{...styles.buttonText, color: colors.text}}
               onPress={askPermissions}
             />
-          ) : (
-            <></>
           )}
           <Button
             text={strings('buttons.next')}

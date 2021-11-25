@@ -1,10 +1,5 @@
 import React, {useCallback, useEffect, useState, useRef} from 'react';
-import {
-  View,
-  FlatList,
-  Dimensions,
-  Animated,
-} from 'react-native';
+import {View, FlatList, Dimensions, Animated} from 'react-native';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
 
@@ -17,14 +12,11 @@ import {scan, stopScan} from '../../../../actions/bluetoothActions';
 import DeviceComponent from '../../../../components/device';
 import ModalComponent from '../../../../components/modal';
 import * as routes from '../../../../constants/routes';
-import { strings } from '../../../../l18n';
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import {strings} from '../../../../l18n';
 
 const HomeScreen = () => {
-  const devices = useSelector((state) => state.ble.devices);
-  const device = useSelector((state) => state.ble.device);
+  const devices = useSelector(state => state.ble.devices);
+  const device = useSelector(state => state.ble.device);
 
   const {colors} = useTheme();
 
@@ -39,14 +31,14 @@ const HomeScreen = () => {
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 500,
-      useNativeDriver: true
+      useNativeDriver: true,
     }).start();
   };
   const fadeOut = () => {
     Animated.timing(fadeAnim, {
       toValue: 0,
       duration: 500,
-      useNativeDriver: true
+      useNativeDriver: true,
     }).start();
   };
 
@@ -78,14 +70,13 @@ const HomeScreen = () => {
       </View>
       <View style={styles.listContainer}>
         <FlatList
-          style={{width: '100%'}}
           data={devices}
           renderItem={({item}) => (
             <DeviceComponent
               key={item.id}
               device={item}
-              setModalVisible={value => setModalVisible(value)}
-              setModalText={value => setModalText(value)}
+              setModalVisible={setModalVisible}
+              setModalText={setModalText}
             />
           )}
         />
@@ -99,7 +90,7 @@ const HomeScreen = () => {
             },
           ]}>
           <Button
-            text={strings("buttons.next")}
+            text={strings('buttons.next')}
             containerStyle={styles.floatButton}
             onPress={nextPressHandler}
             textStyle={styles.text}

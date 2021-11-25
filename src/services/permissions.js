@@ -34,7 +34,7 @@ export const requestReadStoragePermission = async () => {
   return PermissionsAndroid.RESULTS.GRANTED;
 };
 
-export const checkBluetooth_ = async (): Promise<boolean> => {
+export const checkBluetooth_ = async () => {
   return checkMultiple([
     PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
     PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,
