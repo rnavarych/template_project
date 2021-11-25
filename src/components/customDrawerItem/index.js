@@ -7,48 +7,55 @@ import styles from './styles';
 import * as routes from '../../constants/routes';
 
 const icons = {
-  [routes.HOME_SCREEN]: 'ios-home-outline',
-  [routes.IMAGES_SCREEN]: 'ios-image-outline',
-  [routes.SETTINGS_SCREEN]: 'ios-settings-outline',
-  [routes.PROFILE_SCREEN]: 'ios-person-outline',
-  [routes.MAP_SCREEN]: 'ios-map-outline',
-  [routes.PERMISSION_SCREEN]: 'bluetooth-outline',
-};
-
-const iconSelected = {
-  [routes.HOME_SCREEN]: 'ios-home',
-  [routes.IMAGES_SCREEN]: 'ios-image',
-  [routes.SETTINGS_SCREEN]: 'ios-settings',
-  [routes.PROFILE_SCREEN]: 'ios-person',
-  [routes.MAP_SCREEN]: 'ios-map',
-  [routes.PERMISSION_SCREEN]: 'bluetooth',
+  [routes.HOME_SCREEN]: {
+    selectedIcon: 'ios-home',
+    unselectedIcon: 'ios-home-outline',
+  },
+  [routes.IMAGES_SCREEN]: {
+    selectedIcon: 'ios-image',
+    unselectedIcon: 'ios-image-outline',
+  },
+  [routes.SETTINGS_SCREEN]: {
+    selectedIcon: 'ios-settings',
+    unselectedIcon: 'ios-settings-outline',
+  },
+  [routes.PROFILE_SCREEN]: {
+    selectedIcon: 'ios-person',
+    unselectedIcon: 'ios-person-outline',
+  },
+  [routes.MAP_SCREEN]: {
+    selectedIcon: 'ios-map',
+    unselectedIcon: 'ios-map-outline',
+  },
+  [routes.PERMISSION_SCREEN]: {
+    selectedIcon: 'bluetooth',
+    unselectedIcon: 'bluetooth-outline',
+  },
 };
 
 const DrawerItem = ({index, onPress, descriptors, route, isFocused, label}) => {
   const {colors} = useTheme();
 
-  const iconName = isFocused ? iconSelected[route.name] : icons[route.name];
+  const iconName = isFocused ? icons[route.name].unselectedIcon : icons[route.name].unselectedIcon;
 
   return (
-      <TouchableOpacity
-        onPress={() => onPress(isFocused, index, route)}
-        style={styles.btn}>
-        <View style={styles.drawBarItem}>
-          <View>
-            <Ionicons
-              name={iconName}
-              size={26}
-              color={colors.text}
-              style={[styles.icon]}
-            />
-          </View>
-          <View style={styles.textContainer}>
-            <Text style={[styles.textStyle, {color: colors.text}]}>
-              {label}
-            </Text>
-          </View>
+    <TouchableOpacity
+      onPress={() => onPress(isFocused, index, route)}
+      style={styles.btn}>
+      <View style={styles.drawBarItem}>
+        <View>
+          <Ionicons
+            name={iconName}
+            size={26}
+            color={colors.text}
+            style={[styles.icon]}
+          />
         </View>
-      </TouchableOpacity>
+        <View style={styles.textContainer}>
+          <Text style={[styles.textStyle, {color: colors.text}]}>{label}</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 

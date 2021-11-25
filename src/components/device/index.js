@@ -90,7 +90,7 @@ const DeviceComponent = props => {
           <Button
             containerStyle={{
               ...styles.connectButton,
-              backgroundColor: listItem,
+              backgroundColor: menuButton,
             }}
             text={strings('buttons.info')}
             textStyle={{...styles.connectButtonText}}

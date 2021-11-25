@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   connectButtonText: {
-    color: 'black',
+    color: 'white',
     fontSize: 18,
   },
 });
