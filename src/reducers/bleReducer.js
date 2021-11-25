@@ -1,4 +1,3 @@
-import {AnyAction} from 'redux';
 import * as types from '../constants/actionTypes';
 
 let initialState = {
@@ -8,7 +7,7 @@ let initialState = {
   message: '',
 };
 
-const bleReducer = (state = initialState, action: AnyAction) => {
+const bleReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.BLUETOOTHON: {
       return {
@@ -20,12 +19,6 @@ const bleReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         isBluetoothOn: false,
-      };
-    }
-    case types.CHANGECURRENTDEVICE: {
-      return {
-        ...state,
-        device: action.payload,
       };
     }
     case types.ADDDEVICE: {

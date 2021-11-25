@@ -13,8 +13,12 @@ import ImageList from '../../containers/main/ImageList';
 
 import CustomDrawer from '../../components/customDrawer/';
 import bleStack from '../bluetoothStack';
+import { Dimensions } from 'react-native';
+import styles from './styles';
 
 const Drawer = createDrawerNavigator();
+
+const width = Dimensions.get('screen').width
 
 const HomeStackScreen = () => {
     const username = useSelector(state => state.auth.username);
@@ -53,10 +57,7 @@ const HomeStackScreen = () => {
     return (
       <Drawer.Navigator
         screenOptions={{
-          drawerStyle: {
-            borderTopRightRadius: 10,
-            borderBottomRightRadius: 100,
-          },
+          drawerStyle: styles.drawerStyle,
         }}
         drawerContent={props => <CustomDrawer {...props} />}>
         <Drawer.Screen

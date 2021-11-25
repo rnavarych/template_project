@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Text, Pressable, View} from 'react-native';
+import {Text, View} from 'react-native';
 import styles from './styles';
 
 import Button from '../button';
-import {useDispatch, useSelector, connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {disconnectDevice, updateConnect} from '../../actions/bluetoothActions';
 import {
   bluetoothColor,
-  listItem,
   menuButton,
 } from '../../constants/colors';
 import {useTheme} from '@react-navigation/native';
@@ -19,7 +18,6 @@ const DeviceComponent = props => {
   const [deviceId, setDeviceId] = useState('');
   const dispatch = useDispatch();
   const {colors, dark} = useTheme();
-  const {} = useSelector(state => state.ble);
 
   const isConnected = device.isConnected;
   const isConnecting = device.isConnecting;
@@ -93,7 +91,7 @@ const DeviceComponent = props => {
               backgroundColor: menuButton,
             }}
             text={strings('buttons.info')}
-            textStyle={{...styles.connectButtonText}}
+            textStyle={styles.connectButtonText}
             onPress={pressHanlderInfo}
           />
           <Button
@@ -102,7 +100,7 @@ const DeviceComponent = props => {
               backgroundColor: menuButton,
             }}
             text={title()}
-            textStyle={{...styles.connectButtonText}}
+            textStyle={styles.connectButtonText}
             onPress={pressHanlderConnect}
           />
         </View>

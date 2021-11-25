@@ -6,7 +6,8 @@ import BlePermissionScreen from '../../containers/main/ble/blePermissionScreen';
 import DeviceListScreen from '../../containers/main/ble/deviceListScreen';
 import DeviceLogScreen from '../../containers/main/ble/logScreen';
 
-import {Stack} from '../'
+import {Stack} from '../';
+import {strings} from '../../l18n';
 
 const bleStack = () => {
   return (
@@ -15,7 +16,7 @@ const bleStack = () => {
         name={routes.PERMISSION_SCREEN}
         component={BlePermissionScreen}
         options={{
-          drawerLabel: 'Bluetooth',
+          drawerLabel: strings('headers.bluetooth'),
           headerShown: false,
         }}
       />

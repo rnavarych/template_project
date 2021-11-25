@@ -20,7 +20,8 @@
   },
   "headers": {
     "gallery": "Gallery",
-    "photos": "Photos"
+    "photos": "Photos",
+    "bluetooth": "Bluetooth"
   },
   "buttons": {
     "login": "Sign in",
