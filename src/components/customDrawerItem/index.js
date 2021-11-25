@@ -36,7 +36,7 @@ const icons = {
 const DrawerItem = ({index, onPress, descriptors, route, isFocused, label}) => {
   const {colors} = useTheme();
 
-  const iconName = isFocused ? icons[route.name].unselectedIcon : icons[route.name].unselectedIcon;
+  const iconName = isFocused ? icons[route.name].selectedIcon : icons[route.name].unselectedIcon;
 
   return (
     <TouchableOpacity
